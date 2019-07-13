@@ -62,10 +62,6 @@ final class MainViewModel: ViewModelType {
             self.currentPage.accept(1)
             self.newsDataSource.accept([])
             }.disposed(by: disposeBag)
-
-        currentPage.bind { (page) in
-            Logger.log(message: "Page", value: page, logType: .info)
-        }
         
         let loadingTrigger = Observable.merge(input.didLoad,
                                               loadNextSubject.asObservable())
