@@ -27,7 +27,7 @@ final class NAImageTableViewCell: UITableViewCell {
     func fill(imageURL: String) {
         mainImageView.kf
             .setImage(with: URL(string: imageURL)!,
-                      placeholder: UIImage(named: "placeholder"))
+                      placeholder: UIImage.placeholder)
     }
 
     private func setupCell() {

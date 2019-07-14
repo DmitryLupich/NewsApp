@@ -18,7 +18,6 @@ enum NAError {
     case badUrl
     case mapping
     case generic
-    //case serverError(ServerError)
 }
 
 extension NAError: Error {
@@ -30,8 +29,6 @@ extension NAError: Error {
             return Constants.mapping
         case .generic:
             return Constants.generic
-//        case .serverError(let error):
-//            return error.message
         }
     }
 }

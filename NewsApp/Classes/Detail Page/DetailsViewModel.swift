@@ -38,7 +38,8 @@ extension DetailsViewModel: ViewModelType {
     }
 
     func transform(input: Input) -> Output {
-        let postComponents = Observable.just(model.toPostComponentsAdapter())
+        let postComponents = Observable
+            .just(model.toPostComponentsAdapter())
         return Output(postComponents: postComponents)
     }
 }

@@ -50,6 +50,7 @@ extension NewsModel {
 extension NewsModel {
     func toPostComponentsAdapter() -> [PostComponents] {
         return [PostComponents.title(self.titleRendered.title),
+                PostComponents.title(self.date.formattedDate()),
                 PostComponents.image(self.featuredMedia.fullSizeUrl),
                 PostComponents.content(self.contentRendered.content)]
     }
@@ -75,30 +76,3 @@ struct FeaturedImage: Codable {
         case fullSizeUrl = "source_url"
     }
 }
-
-//    init(from decoder: Decoder) throws {
-//
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//
-//        let titleContainer = try container.nestedContainer(keyedBy: CodingKeys.self,
-//                                                           forKey: .title)
-//        let contentContainer = try container.nestedContainer(keyedBy: CodingKeys.self,
-//                                                             forKey: .content)
-//        let imageUrlContainer = try container.nestedContainer(keyedBy: CodingKeys.self,
-//                                                              forKey: .featuredMedia)
-//        id = try container.decode(Int.self, forKey: .id)
-//        date = try container.decode(String.self, forKey: .date)
-//        title = try titleContainer.decode(String.self, forKey: .rendered)
-//        content = try contentContainer.decode(String.self, forKey: .rendered)
-//        imageUrl = try imageUrlContainer.decode(String.self, forKey: .sourceUrl)
-//    }
-
-//extension NewsModel {
-//    func toJSON() -> [String: Any] {
-//        return ["id": id ,
-//                "date": date ,
-//                "title": title ,
-//                "content": content ,
-//                "imageUrl": imageUrl]
-//    }
-//}

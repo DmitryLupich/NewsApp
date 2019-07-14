@@ -125,11 +125,11 @@ final class MainViewModel: ViewModelType {
 
 extension MainViewModel {
     private func handleNext(news: [NewsModel]) {
-        let allNews = newsDataSource.value + news
-        if allNews.isNotEmpty {
+        if news.isNotEmpty {
             isServiceAvaliableSubject.onNext(true)
-            storage.write(models: allNews)
+            let allNews = newsDataSource.value + news
             newsDataSource.accept(allNews)
+            storage.write(models: allNews)
         } else {
             isServiceAvaliableSubject.onNext(false)
             newsDataSource.accept(storage.read(modelType: NewsModel.self))

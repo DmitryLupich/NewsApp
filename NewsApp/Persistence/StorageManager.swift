@@ -8,6 +8,10 @@
 
 import Foundation
 
+fileprivate struct Constants {
+    static let fileName: String = "Storage.txt"
+}
+
 protocol Persistable {
     func write<T: Encodable>(models: [T])
     func read<T: Decodable>(modelType: T.Type) -> [T]
@@ -17,7 +21,7 @@ final class StorageManager {
     
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
-    private let fileName = "Storage.txt"
+    private let fileName = Constants.fileName
     private let fileManager = FileManager.default
     private let documentsDirectoryPathString =
         NSSearchPathForDirectoriesInDomains(.documentDirectory,
@@ -28,12 +32,41 @@ final class StorageManager {
     private var documentsDirectoryPath: URL {
         return URL(string: documentsDirectoryPathString)!
     }
+
+    private var fileUrl: URL {
+        return URL.init(fileURLWithPath: documentsDirectoryPathString
+            .appending("/")
+            .appending(fileName))
+    }
 }
 
 extension StorageManager: Persistable {
     
     func write<T>(models: [T]) where T : Encodable {
-        checkFileExistance()
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.clearCache()
+            self.save(models: models)
+        }
+    }
+    
+    func read<T>(modelType: T.Type) -> [T] where T : Decodable {
+        return get()
+    }
+}
+
+extension StorageManager {
+    private func clearCache() {
+        do {
+            try fileManager.removeItem(at: fileUrl)
+        } catch {
+            Logger.log(message: "Delete file", value: error, logType: .error)
+        }
+        fileManager.createFile(atPath: jsonFilePath.absoluteString,
+                               contents: nil,
+                               attributes: nil)
+    }
+
+    private func save<T>(models: [T]) where T : Encodable {
         do {
             let modelData = try self.encoder.encode(models.self)
             let file = try FileHandle(forWritingTo: self.jsonFilePath)
@@ -43,29 +76,17 @@ extension StorageManager: Persistable {
             Logger.log(message: "Writing Error", value: error, logType: .error)
         }
     }
-    
-    func read<T>(modelType: T.Type) -> [T] where T : Decodable {
+
+    private func get<T>() -> [T] where T: Decodable {
         do {
-            let strURL = documentsDirectoryPathString.appending("/").appending(fileName)
-            let url = URL.init(fileURLWithPath: strURL)
-            let data = try Data(contentsOf: url)
+            let data = try Data(contentsOf: fileUrl)
             let models: [T] = try decoder.decode([T].self, from: data)
             Logger.log(message: "Read models count", value: models.count, logType: .info)
             return models
         } catch
         {
-            Logger.log(message: "Reading Error", value: error, logType: .error)
+            Logger.log(message: "Reading Error", value: error, logType: .unexpected)
             return []
-        }
-    }
-}
-
-extension StorageManager {
-    private func checkFileExistance() {
-        if !fileManager.fileExists(atPath: jsonFilePath.absoluteString) {
-            let _ = fileManager.createFile(atPath: jsonFilePath.absoluteString,
-                                           contents: nil,
-                                           attributes: nil)
         }
     }
 }

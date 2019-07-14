@@ -8,17 +8,19 @@
 
 enum LogType: String
 {
-    case error = "⛔️ Error: "
-    case token = "🔑 Token: "
     case info  = "💎 Info: "
+    case error = "⛔️ Error: "
+    case unexpected = "💩 Shit happens: "
 }
 
 struct Logger
 {
     static func log(message: String = "", value: Any, logType: LogType = .info)
     {
+        #if DEBUG
         let text: String = logType.rawValue + message + " \(value)"
         consoleLog(text)
+        #endif
     }
     
     private static func consoleLog(_ message: String)

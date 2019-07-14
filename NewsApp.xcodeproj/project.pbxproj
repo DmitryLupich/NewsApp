@@ -14,7 +14,6 @@
 		4745F6F422D360870050C939 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745F6F322D360870050C939 /* Endpoint.swift */; };
 		4745F6F622D361160050C939 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745F6F522D361160050C939 /* AppConstants.swift */; };
 		4745F6F822D361D70050C939 /* NAError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745F6F722D361D70050C939 /* NAError.swift */; };
-		4745F6FA22D364670050C939 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745F6F922D364670050C939 /* ServerError.swift */; };
 		47C02B6522D36DDD00CE98B4 /* NAListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C02B6322D36DDD00CE98B4 /* NAListTableViewCell.swift */; };
 		47C02B6622D36DDD00CE98B4 /* NAListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C02B6422D36DDD00CE98B4 /* NAListTableViewCell.xib */; };
 		47C02B6A22D37EAF00CE98B4 /* UITableView+RegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C02B6922D37EAF00CE98B4 /* UITableView+RegisterCell.swift */; };
@@ -29,6 +28,7 @@
 		47DC57DE22D4EA580046E353 /* NAImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DC57DC22D4EA580046E353 /* NAImageTableViewCell.swift */; };
 		47DC57DF22D4EA580046E353 /* NAImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DC57DD22D4EA580046E353 /* NAImageTableViewCell.xib */; };
 		47DC57E522D4EA8D0046E353 /* PostComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DC57E422D4EA8D0046E353 /* PostComponents.swift */; };
+		47E38F1122DA655A00A82EBA /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E38F1022DA655A00A82EBA /* UIImage+Extensions.swift */; };
 		47F73A3C22D354A30067C4B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F73A3B22D354A30067C4B4 /* AppDelegate.swift */; };
 		47F73A4322D354A40067C4B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47F73A4222D354A40067C4B4 /* Assets.xcassets */; };
 		47F73A4622D354A40067C4B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47F73A4422D354A40067C4B4 /* LaunchScreen.storyboard */; };
@@ -51,7 +51,6 @@
 		4745F6F322D360870050C939 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		4745F6F522D361160050C939 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		4745F6F722D361D70050C939 /* NAError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAError.swift; sourceTree = "<group>"; };
-		4745F6F922D364670050C939 /* ServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
 		47C02B6322D36DDD00CE98B4 /* NAListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAListTableViewCell.swift; sourceTree = "<group>"; };
 		47C02B6422D36DDD00CE98B4 /* NAListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NAListTableViewCell.xib; sourceTree = "<group>"; };
 		47C02B6922D37EAF00CE98B4 /* UITableView+RegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+RegisterCell.swift"; sourceTree = "<group>"; };
@@ -66,6 +65,7 @@
 		47DC57DC22D4EA580046E353 /* NAImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAImageTableViewCell.swift; sourceTree = "<group>"; };
 		47DC57DD22D4EA580046E353 /* NAImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NAImageTableViewCell.xib; sourceTree = "<group>"; };
 		47DC57E422D4EA8D0046E353 /* PostComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComponents.swift; sourceTree = "<group>"; };
+		47E38F1022DA655A00A82EBA /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		47F73A3822D354A30067C4B4 /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47F73A3B22D354A30067C4B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47F73A4222D354A40067C4B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -125,7 +125,6 @@
 			isa = PBXGroup;
 			children = (
 				4745F6F122D360350050C939 /* NewsModel.swift */,
-				4745F6F922D364670050C939 /* ServerError.swift */,
 				47DC57E422D4EA8D0046E353 /* PostComponents.swift */,
 			);
 			path = Model;
@@ -164,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				47C02B6922D37EAF00CE98B4 /* UITableView+RegisterCell.swift */,
+				47E38F1022DA655A00A82EBA /* UIImage+Extensions.swift */,
 			);
 			path = "UI Related";
 			sourceTree = "<group>";
@@ -419,6 +419,7 @@
 				47C02B6A22D37EAF00CE98B4 /* UITableView+RegisterCell.swift in Sources */,
 				4745F6F222D360350050C939 /* NewsModel.swift in Sources */,
 				47FE097922D7758600638B49 /* StorageManager.swift in Sources */,
+				47E38F1122DA655A00A82EBA /* UIImage+Extensions.swift in Sources */,
 				47F73A5C22D356170067C4B4 /* NAMainViewController.swift in Sources */,
 				47F73A3C22D354A30067C4B4 /* AppDelegate.swift in Sources */,
 				47DC57E522D4EA8D0046E353 /* PostComponents.swift in Sources */,
@@ -438,7 +439,6 @@
 				47C83B3722D8D00E005DF6B8 /* Array+Extensions.swift in Sources */,
 				473F561922D3582C00387020 /* NABaseViewController.swift in Sources */,
 				4745F6F622D361160050C939 /* AppConstants.swift in Sources */,
-				4745F6FA22D364670050C939 /* ServerError.swift in Sources */,
 				47DC57D422D4CFEE0046E353 /* ActivityIndicator.swift in Sources */,
 				47C02B6522D36DDD00CE98B4 /* NAListTableViewCell.swift in Sources */,
 				47F73A5E22D3570C0067C4B4 /* MainViewModel.swift in Sources */,

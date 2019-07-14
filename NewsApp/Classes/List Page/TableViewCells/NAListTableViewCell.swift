@@ -11,33 +11,6 @@ import RxCocoa
 import RxSwift
 import Kingfisher
 
-//class NAListTableViewCellViewModel: ViewModelType {
-//
-//    struct Input { }
-//
-//    struct Output {
-//        let title: Observable<String>
-//        let description: Observable<String>
-//        let imageData: Observable<Data>
-//    }
-//
-//    private let model: NewsModel
-//
-//    init(model: NewsModel) {
-//        self.model = model
-//    }
-//
-//    func transform(input: Input) -> Output {
-//        let data = URLSession.shared
-//            .rx
-//            .data(request: URLRequest(url: URL(string: model.featuredMedia.fullSizeUrl)!))
-//        return Output(title: Observable.just(model.titleRendered.title),
-//                      description: Observable.just(model.),
-//                      imageData: data)
-//    }
-//
-//}
-
 final class NAListTableViewCell: UITableViewCell {
     
     // MARK: - Outlets
@@ -56,10 +29,10 @@ final class NAListTableViewCell: UITableViewCell {
     
     func fill(_ model: NewsModel) {
         titleLabel.text = model.titleRendered.title
-        descriptionLabel.text = model.date
+        descriptionLabel.text = model.date.formattedDate()
         mainImageView.kf
             .setImage(with: URL(string: model.featuredMedia.fullSizeUrl)!,
-                      placeholder: UIImage(named: "placeholder"))
+                      placeholder: UIImage.placeholder)
     }
     
     private func setupCell() {

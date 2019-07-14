@@ -33,14 +33,19 @@ final class NADetailsViewController: NABaseViewController {
         setupView()
         bindViewModel()
     }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.frame
+    }
 }
 
 // MARK: - Setup View
 
 extension NADetailsViewController {
     private func setupView() {
+        title = Constants.title
         view.addSubview(tableView)
-        tableView.frame = view.frame
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
@@ -64,7 +69,8 @@ extension NADetailsViewController {
                 switch element {
 
                 case .title(let title),
-                     .content(let title):
+                     .content(let title),
+                     .date(let title):
                     let cell: NATitleTableViewCell = tableView
                         .dequeueReusableCell(forIndexPath: IndexPath(row: row, section: 0))
                     cell.fill(title: title)
@@ -78,5 +84,11 @@ extension NADetailsViewController {
                 }
             }
             .disposed(by: disposeBag)
+    }
+}
+
+extension NADetailsViewController {
+    struct Constants {
+        static let title = "Details"
     }
 }

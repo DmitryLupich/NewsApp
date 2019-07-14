@@ -42,6 +42,7 @@ final class NAMainViewController: NABaseViewController {
 
 extension NAMainViewController {
     private func setupView() {
+        title = Constants.title
         view.addSubview(tableView)
         refreshControl.layer.zPosition = -1
         tableView.addSubview(refreshControl)
@@ -94,16 +95,18 @@ extension NAMainViewController {
                        cellType: NAListTableViewCell.self))
             { row, model, cell in
                 cell.fill(model)
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
 
         output.isLoading
             .bind(to: refreshControl.rx.isRefreshing)
             .disposed(by: disposeBag)
 
         output.errorMessage
-            .bind { (text) in
-                Logger.log(message: "Error catched in VC",
-                           value: text,
+            .bind { [unowned self] message in
+                self.alert(message: message)
+                Logger.log(message: "Error alert",
+                           value: message,
                            logType: .error)
             }
             .disposed(by: disposeBag)
@@ -114,6 +117,7 @@ extension NAMainViewController {
 
 extension NAMainViewController {
     struct Constants {
+        static let title = "News"
         static let rowHeigh: CGFloat = 64.0
     }
 }
