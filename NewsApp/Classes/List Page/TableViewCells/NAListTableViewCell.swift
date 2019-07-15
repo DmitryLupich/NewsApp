@@ -29,7 +29,7 @@ final class NAListTableViewCell: UITableViewCell {
     
     func fill(_ model: NewsModel) {
         titleLabel.text = model.titleRendered.title
-        descriptionLabel.text = model.date.formattedDate()
+        descriptionLabel.text = model.contentRendered.content //date.formattedDate()
         mainImageView.kf
             .setImage(with: URL(string: model.featuredMedia.fullSizeUrl)!,
                       placeholder: UIImage.placeholder)

@@ -19,10 +19,14 @@ extension String {
     func formattedDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        let dateOfTypeDate = dateFormatter.date(from: self)
         dateFormatter.locale = Locale(identifier: "ru_UA")
         dateFormatter.dateStyle = DateFormatter.Style.medium
-        let stringDate = dateFormatter.string(from: dateOfTypeDate!).lowercased()
+        guard
+            let dateOfTypeDate = dateFormatter.date(from: self)
+            else { return "" }
+        let stringDate = dateFormatter
+            .string(from: dateOfTypeDate)
+            .lowercased()
         return stringDate
     }
 }

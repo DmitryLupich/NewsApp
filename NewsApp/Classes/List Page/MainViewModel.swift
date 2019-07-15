@@ -108,9 +108,7 @@ final class MainViewModel: ViewModelType {
                 case .error(let error):
                     self.handleError(error: error)
                 case .completed:
-                    #if DEBUG
                     Logger.log(message: #function, value: "completed", logType: .info)
-                    #endif
                 }
             }
             .disposed(by: disposeBag)

@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum HTTPMethod: String {
+    case get = "GET"
+    case post = "POST"
+}
+
 enum Endpoint {
     case latestNews(page: Int)
 
@@ -20,5 +25,12 @@ enum Endpoint {
 
     private var baseURL: String {
         return AppConstants.Domain.baseURL
+    }
+
+    var httpMethod: String {
+        switch self {
+        case .latestNews:
+            return HTTPMethod.get.rawValue
+        }
     }
 }

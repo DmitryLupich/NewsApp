@@ -9,6 +9,7 @@
 import Foundation
 
 struct AppConstants {
+    // MARK: - Wordpress REST API
     struct Domain {
         static let baseURL = "https://galagram.com/wp-json/wp/v2/" 
     }

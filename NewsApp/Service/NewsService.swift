@@ -31,9 +31,13 @@ final class NewsService {
 extension NewsService: ServiceContract {
 
     func latestNews<T: Decodable>(endPoint: Endpoint) -> Observable<[T]> {
-        guard let url = URL(string: endPoint.path) else { return Observable.error(NAError.badUrl) }
+        guard
+            let url = URL(string: endPoint.path)
+            else
+        { return Observable.error(NAError.badUrl) }
         
-        let request = URLRequest(url: url)
+        var request = URLRequest(url: url)
+        request.httpMethod = endPoint.httpMethod
         
         return session.rx
             .response(request: request)
@@ -60,7 +64,8 @@ extension NewsService {
             catch {
                 throw NAError.mapping
             }
-            //TODO: - handle other statusCodes and map server errors if needed
+            //TODO: - Handle other statusCodes
+            //and map server errors from serverResponse.data if needed
         //REFERENCE https://www.restapitutorial.com/httpstatuscodes.html
         default:
             throw NAError.generic

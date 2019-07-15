@@ -42,14 +42,14 @@ final class StorageManager {
 
 extension StorageManager: Persistable {
     
-    func write<T>(models: [T]) where T : Encodable {
+    public func write<T>(models: [T]) where T : Encodable {
         DispatchQueue.global(qos: .userInteractive).async {
             self.clearCache()
             self.save(models: models)
         }
     }
     
-    func read<T>(modelType: T.Type) -> [T] where T : Decodable {
+    public func read<T>(modelType: T.Type) -> [T] where T : Decodable {
         return get()
     }
 }

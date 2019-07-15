@@ -19,7 +19,7 @@ protocol Alertable {
     func alert(message: String)
 }
 
-extension Alertable where Self: UIViewController {
+extension Alertable where Self: NABaseViewController {
     func alert(message: String) {
         let alert = UIAlertController(title: Constants.title,
                                       message: message,

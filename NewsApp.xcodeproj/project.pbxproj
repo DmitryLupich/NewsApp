@@ -218,9 +218,9 @@
 		47F73A3A22D354A30067C4B4 /* NewsApp */ = {
 			isa = PBXGroup;
 			children = (
-				47FE097322D773EB00638B49 /* Persistence */,
 				47F73A3B22D354A30067C4B4 /* AppDelegate.swift */,
 				47F73A4E22D355040067C4B4 /* MainCoordinator.swift */,
+				47FE097322D773EB00638B49 /* Persistence */,
 				47F73A5A22D356090067C4B4 /* Classes */,
 				4745F6F022D360260050C939 /* Model */,
 				4745F6EB22D35FC70050C939 /* Service */,

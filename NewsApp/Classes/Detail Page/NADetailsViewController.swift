@@ -9,31 +9,31 @@
 import UIKit
 
 final class NADetailsViewController: NABaseViewController {
-
+    
     // MARK: - Properties
-
+    
     private let viewModel: DetailsViewModel
     private let tableView = UITableView()
-
+    
     // MARK: - Initialization
-
+    
     init(viewModel: DetailsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         bindViewModel()
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.frame
@@ -59,15 +59,15 @@ extension NADetailsViewController {
 
 extension NADetailsViewController {
     private func bindViewModel() {
-
+        
         let input = DetailsViewModel.Input()
         let output = viewModel.transform(input: input)
-
+        
         output.postComponents
             .bind(to: tableView.rx.items)
             { (tableView, row, element) in
                 switch element {
-
+                    
                 case .title(let title),
                      .content(let title),
                      .date(let title):
@@ -75,7 +75,7 @@ extension NADetailsViewController {
                         .dequeueReusableCell(forIndexPath: IndexPath(row: row, section: 0))
                     cell.fill(title: title)
                     return cell
-
+                    
                 case .image(let imageURL):
                     let cell: NAImageTableViewCell = tableView
                         .dequeueReusableCell(forIndexPath: IndexPath(row: row, section: 0))

@@ -88,7 +88,6 @@ extension NAMainViewController {
         let output = viewModel.transform(input: input)
 
         output.news
-            .share()
             .bind(to: tableView
                 .rx
                 .items(cellIdentifier: NAListTableViewCell.reuseIdentifier,
@@ -118,6 +117,6 @@ extension NAMainViewController {
 extension NAMainViewController {
     struct Constants {
         static let title = "News"
-        static let rowHeigh: CGFloat = 64.0
+        static let rowHeigh: CGFloat = 100.0
     }
 }
