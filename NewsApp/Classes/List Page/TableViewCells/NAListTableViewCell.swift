@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import RxCocoa
-import RxSwift
 import Kingfisher
 
 final class NAListTableViewCell: UITableViewCell {

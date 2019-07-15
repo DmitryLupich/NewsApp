@@ -7,8 +7,6 @@ target 'NewsApp' do
 
   # Pods for NewsApp
 
-    pod 'RxSwift', '~> 4.5'
-    pod 'RxCocoa', '~> 4.5'
     pod 'Kingfisher', '~> 4.10.0'
 
 end

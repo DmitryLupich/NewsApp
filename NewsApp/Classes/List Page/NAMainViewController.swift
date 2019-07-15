@@ -7,13 +7,11 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 
 final class NAMainViewController: NABaseViewController {
     
     // MARK: - Properties
-
+    
     private let tableView = UITableView()
     private let viewModel: MainViewModel
     private let refreshControl = UIRefreshControl()
@@ -35,6 +33,7 @@ final class NAMainViewController: NABaseViewController {
         super.viewDidLoad()
         setupView()
         bindViewModel()
+        viewModel.start()
     }
 }
 
@@ -45,6 +44,7 @@ extension NAMainViewController {
         title = Constants.title
         view.addSubview(tableView)
         refreshControl.layer.zPosition = -1
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
         tableView.register(NAListTableViewCell.self)
         tableView.rowHeight = Constants.rowHeigh
@@ -54,12 +54,14 @@ extension NAMainViewController {
                  tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
                  tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ].map { $0.isActive = true }
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+}
 
-        tableView.rx.itemSelected
-            .bind { [unowned self] indexPath in
-                self.tableView
-                    .deselectRow(at: indexPath, animated: true)
-            }.disposed(by: disposeBag)
+extension NAMainViewController {
+    @objc private func refresh(_ sender: UIRefreshControl) {
+        viewModel.start()
     }
 }
 
@@ -67,48 +69,64 @@ extension NAMainViewController {
 
 extension NAMainViewController {
     private func bindViewModel() {
+        viewModel.render = { [weak self] state in
+            guard let strongSelf = self else { return }
+            strongSelf.render(state: state)
+        }
+    }
+}
 
-        let lastCellIndex = tableView.rx
-            .willDisplayCell
-            .map { $0.indexPath.row }
+// MARK: - Methods
 
-        let refresh = refreshControl.rx
-            .controlEvent(.valueChanged)
-            .asObservable()
+extension NAMainViewController {
+    private func render(state: MainViewModel.ListModel) {
+        switch state {
+        case .data:
+            self.showData()
+        case .isLoading(let isLoading):
+            self.handleRefresh(isLoading)
+        case .error(let error):
+            self.showError(error)
+        }
+    }
+    
+    private func showData() {
+        tableView.reloadData()
+    }
+    
+    private func handleRefresh(_ isLoading: Bool) {
+        if !isLoading { refreshControl.endRefreshing() }
+    }
+    
+    private func showError(_ error: Error) {
+        alert(message: error.localizedDescription)
+    }
+}
 
-        let modelSelected = tableView.rx
-            .modelSelected(NewsModel.self)
-            .asObservable()
+// MARK: - TableView Delegate
 
-        let input = MainViewModel.Input(didLoad: didLoad.asObservable(),
-                                        lastCellIndex: lastCellIndex,
-                                        onRefresh: refresh,
-                                        onSelectedModel: modelSelected)
+extension NAMainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        viewModel.selected(indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        viewModel.rowChanged(indexPath.row)
+    }
+}
 
-        let output = viewModel.transform(input: input)
+// MARK: - TableView DataSource
 
-        output.news
-            .bind(to: tableView
-                .rx
-                .items(cellIdentifier: NAListTableViewCell.reuseIdentifier,
-                       cellType: NAListTableViewCell.self))
-            { row, model, cell in
-                cell.fill(model)
-            }
-            .disposed(by: disposeBag)
-
-        output.isLoading
-            .bind(to: refreshControl.rx.isRefreshing)
-            .disposed(by: disposeBag)
-
-        output.errorMessage
-            .bind { [unowned self] message in
-                self.alert(message: message)
-                Logger.log(message: "Error alert",
-                           value: message,
-                           logType: .error)
-            }
-            .disposed(by: disposeBag)
+extension NAMainViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.dataSourceCount
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: NAListTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+        cell.fill(viewModel.publicDataSource[indexPath.row])
+        return cell
     }
 }
 

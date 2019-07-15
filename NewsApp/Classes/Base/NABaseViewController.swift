@@ -7,22 +7,10 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 
 class NABaseViewController: UIViewController {
-    
-    // MARK: - Properties
-    
-    internal let disposeBag = DisposeBag()
-    internal let didLoad = ReplaySubject<Void>.create(bufferSize: 1)
-    
-    // MARK: - Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        didLoad.onNext(())
-    }
+
+    // MARK: - Deinit
     
     deinit {
         #if DEBUG

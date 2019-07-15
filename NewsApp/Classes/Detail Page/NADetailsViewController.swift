@@ -14,6 +14,7 @@ final class NADetailsViewController: NABaseViewController {
     
     private let viewModel: DetailsViewModel
     private let tableView = UITableView()
+    private var dataSource: DetailsDataSource?
     
     // MARK: - Initialization
     
@@ -30,8 +31,9 @@ final class NADetailsViewController: NABaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
         bindViewModel()
+        setupView()
+        tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -52,6 +54,7 @@ extension NADetailsViewController {
         tableView.allowsSelection = false
         tableView.register(NATitleTableViewCell.self)
         tableView.register(NAImageTableViewCell.self)
+        tableView.dataSource = dataSource
     }
 }
 
@@ -59,33 +62,11 @@ extension NADetailsViewController {
 
 extension NADetailsViewController {
     private func bindViewModel() {
-        
-        let input = DetailsViewModel.Input()
-        let output = viewModel.transform(input: input)
-        
-        output.postComponents
-            .bind(to: tableView.rx.items)
-            { (tableView, row, element) in
-                switch element {
-                    
-                case .title(let title),
-                     .content(let title),
-                     .date(let title):
-                    let cell: NATitleTableViewCell = tableView
-                        .dequeueReusableCell(forIndexPath: IndexPath(row: row, section: 0))
-                    cell.fill(title: title)
-                    return cell
-                    
-                case .image(let imageURL):
-                    let cell: NAImageTableViewCell = tableView
-                        .dequeueReusableCell(forIndexPath: IndexPath(row: row, section: 0))
-                    cell.fill(imageURL: imageURL)
-                    return cell
-                }
-            }
-            .disposed(by: disposeBag)
+        dataSource = DetailsDataSource(dataSource: viewModel.postComponentes)
     }
 }
+
+// MARK: - Constants
 
 extension NADetailsViewController {
     struct Constants {

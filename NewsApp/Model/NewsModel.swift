@@ -50,7 +50,7 @@ extension NewsModel {
 extension NewsModel {
     func toPostComponentsAdapter() -> [PostComponents] {
         return [PostComponents.title(self.titleRendered.title),
-                PostComponents.title(self.date.formattedDate()),
+                PostComponents.date(self.date.formattedDate()),
                 PostComponents.image(self.featuredMedia.fullSizeUrl),
                 PostComponents.content(self.contentRendered.content)]
     }
