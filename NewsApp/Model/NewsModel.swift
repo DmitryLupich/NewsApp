@@ -11,16 +11,14 @@ import Foundation
 typealias Identifier = Int
 
 struct NewsModel {
-    
     let id: Int
     let date: String
     let contentRendered: ContentRendered
     let titleRendered: TitleRendered
-    let featuredMedia: FeaturedImage
+    let featuredMedia: FeaturedImage?
 }
 
 extension NewsModel: Codable {
-    
     private enum CodingKeys: String, CodingKey {
         case id, date
         case titleRendered = "title"
@@ -51,7 +49,7 @@ extension NewsModel {
     func toPostComponentsAdapter() -> [PostComponents] {
         return [PostComponents.title(self.titleRendered.title),
                 PostComponents.title(self.date.formattedDate()),
-                PostComponents.image(self.featuredMedia.fullSizeUrl),
+                PostComponents.image(self.featuredMedia?.fullSizeUrl),
                 PostComponents.content(self.contentRendered.content)]
     }
 }
@@ -71,7 +69,7 @@ struct ContentRendered: Codable {
 }
 
 struct FeaturedImage: Codable {
-    var fullSizeUrl: String
+    let fullSizeUrl: String?
     private enum CodingKeys: String, CodingKey {
         case fullSizeUrl = "source_url"
     }

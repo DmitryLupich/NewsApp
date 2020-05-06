@@ -8,17 +8,14 @@
 
 import UIKit
 
-extension UITableView
-{
-    func register<T: UITableViewCell>(_: T.Type) where T: ReuseIdentifiable
-    {
+extension UITableView {
+    func register<T: UITableViewCell>(_: T.Type) where T: ReuseIdentifiable {
         let nib = UINib(nibName: T.reuseIdentifier, bundle: nil)
         register(nib, forCellReuseIdentifier: T.reuseIdentifier)
     }
 
     func dequeueReusableCell<T: UITableViewCell>(forIndexPath indexPath: IndexPath)
-        -> T where T: ReuseIdentifiable
-    {
+        -> T where T: ReuseIdentifiable {
         guard let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier,
                                              for: indexPath) as? T else {
                                                 fatalError("Could not dequeue cell with identifier: \(T.reuseIdentifier)")

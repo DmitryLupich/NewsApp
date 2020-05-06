@@ -27,7 +27,7 @@ final class MainViewModel: ViewModelType {
     
     // MARK: - Properties
 
-    private let storage = StorageManager()
+    private let storage = StorageManager(filteRouter: .news)
     private let service: ServiceContract
     private let coordinator: MainCoordinator
     private let newsDataSource = BehaviorRelay<[NewsModel]>(value: [])
@@ -39,8 +39,7 @@ final class MainViewModel: ViewModelType {
     
     // MARK: - Initialization
     
-    init(service: ServiceContract,
-         coordinator: MainCoordinator) {
+    init(service: ServiceContract, coordinator: MainCoordinator) {
         self.service = service
         self.coordinator = coordinator
     }
@@ -49,26 +48,26 @@ final class MainViewModel: ViewModelType {
     
     func transform(input: MainViewModel.Input) -> MainViewModel.Output {
         
-        input.onSelectedModel.observeOn(MainScheduler.instance)
-            .bind { [unowned self] model in
-                self.coordinator.toDetails(model)
-            }.disposed(by: disposeBag)
+        input.onSelectedModel
+            .observeOn(MainScheduler.instance)
+            .bind(to: coordinator.rx.toDetails)
+            .disposed(by: disposeBag)
         
         let loader = ActivityIndicator()
         let isLoading = loader.asObservable()
-        let refreshTrigger = input.onRefresh.share()
+        let refreshTrigger = input.onRefresh
 
         refreshTrigger.bind { [unowned self] _ in
             self.currentPage.accept(1)
             self.newsDataSource.accept([])
-            }.disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
         
         let loadingTrigger = Observable.merge(input.didLoad,
                                               loadNextSubject.asObservable())
         
         loadingTrigger.bind { [unowned self] _ in
             self.currentPage.accept(self.currentPage.value + 1)
-            }.disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
         
         let newsResponse: Observable<[NewsModel]> = currentPage
             .asObservable()
@@ -76,6 +75,12 @@ final class MainViewModel: ViewModelType {
                 return self.service
                     .latestNews(endPoint: Endpoint.latestNews(page: page))
                     .trackActivity(loader)
+                    .do(onNext: { [unowned self] (news) in
+                        self.doOnNext(news)
+                    })
+                    .catchError { [unowned self] error in
+                        return self.handle(error)
+                }
         }
 
         let preparedModels: Observable<[NewsModel]> = newsResponse
@@ -94,27 +99,21 @@ final class MainViewModel: ViewModelType {
                 return isAvaliable ? last == count - 5 : false
         }
         
-        isLoadNext.flatMap({ isTriggered -> Observable<Void> in
+        isLoadNext.flatMap { isTriggered -> Observable<Void> in
             return isTriggered ? .just(()) : .empty()
-        })
-            .bind(to: loadNextSubject)
-            .disposed(by: disposeBag)
+        }
+        .bind(to: loadNextSubject)
+        .disposed(by: disposeBag)
         
-        preparedModels.subscribeOn(MainScheduler.instance)
-            .subscribe { [unowned self] (event) in
-                switch event {
-                case .next(let news):
-                    self.handleNext(news: news)
-                case .error(let error):
-                    self.handleError(error: error)
-                case .completed:
-                    Logger.log(message: #function, value: "completed", logType: .info)
-                }
-            }
-            .disposed(by: disposeBag)
+        preparedModels
+            .subscribeOn(MainScheduler.instance)
+            .bind { [unowned self] news in
+                let allNews = self.newsDataSource.value + news
+                self.newsDataSource.accept(allNews)
+        }.disposed(by: disposeBag)
         
         return Output(news: newsDataSource.asObservable(),
-                      isLoading: isLoading.share(),
+                      isLoading: isLoading,
                       errorMessage: errorSubject.asObservable())
     }
 }
@@ -122,23 +121,16 @@ final class MainViewModel: ViewModelType {
 // MARK: - Methods
 
 extension MainViewModel {
-    private func handleNext(news: [NewsModel]) {
-        if news.isNotEmpty {
-            isServiceAvaliableSubject.onNext(true)
-            let allNews = newsDataSource.value + news
-            newsDataSource.accept(allNews)
-            storage.write(models: allNews)
-        } else {
-            isServiceAvaliableSubject.onNext(false)
-            newsDataSource.accept(storage.read(modelType: NewsModel.self))
-        }
+    private func doOnNext(_ news: [NewsModel]) {
+        isServiceAvaliableSubject.onNext(true)
+        let allNews = newsDataSource.value + news
+        storage.write(models: allNews)
     }
 
-    private func handleError(error: Error) {
-        if let error = error as? NAError {
-            self.errorSubject.onNext(error.localizedDescription)
-        }
-        errorSubject.onNext(error.localizedDescription)
-        newsDataSource.accept(storage.read(modelType: NewsModel.self))
+    private func handle(_ error: Error) -> Observable<[NewsModel]> {
+        isServiceAvaliableSubject.onNext(false)
+        let models = storage.read(modelType: NewsModel.self)
+        let isDataSourceEmpty = newsDataSource.value.isEmpty
+        return isDataSourceEmpty ? Observable.just(models) : .empty()
     }
 }

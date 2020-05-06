@@ -9,7 +9,7 @@
 import UIKit.UIImage
 
 extension UIImage {
-
+    // MARK: - For using "placeholder" Image
     static var placeholder: UIImage {
         return UIImage(named: #function) ?? UIImage()
     }

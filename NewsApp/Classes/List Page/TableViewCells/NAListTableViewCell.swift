@@ -29,10 +29,13 @@ final class NAListTableViewCell: UITableViewCell {
     
     func fill(_ model: NewsModel) {
         titleLabel.text = model.titleRendered.title
-        descriptionLabel.text = model.contentRendered.content //date.formattedDate()
-        mainImageView.kf
-            .setImage(with: URL(string: model.featuredMedia.fullSizeUrl)!,
+        descriptionLabel.text = model.contentRendered.content
+        _ = model.featuredMedia?.fullSizeUrl
+            .flatMap(URL.init)
+            .map { mainImageView.kf
+            .setImage(with: $0,
                       placeholder: UIImage.placeholder)
+        }
     }
     
     private func setupCell() {

@@ -13,7 +13,7 @@ final class NAImageTableViewCell: UITableViewCell {
 
     // MARK: - Outlets
 
-    @IBOutlet weak var mainImageView: UIImageView!
+    @IBOutlet private weak var mainImageView: UIImageView!
 
     // MARK: - Lifecycle
 
@@ -24,10 +24,12 @@ final class NAImageTableViewCell: UITableViewCell {
 
     // MARK: - Methods
 
-    func fill(imageURL: String) {
-        mainImageView.kf
-            .setImage(with: URL(string: imageURL)!,
-                      placeholder: UIImage.placeholder)
+    func fill(imageURL: String?) {
+        _ = imageURL
+            .flatMap(URL.init)
+            .map {
+                mainImageView.kf.setImage(with: $0,placeholder: UIImage.placeholder)
+        }
     }
 
     private func setupCell() {

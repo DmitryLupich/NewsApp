@@ -13,7 +13,7 @@ import RxCocoa
 final class NAMainViewController: NABaseViewController {
     
     // MARK: - Properties
-
+    
     private let tableView = UITableView()
     private let viewModel: MainViewModel
     private let refreshControl = UIRefreshControl()
@@ -49,17 +49,17 @@ extension NAMainViewController {
         tableView.register(NAListTableViewCell.self)
         tableView.rowHeight = Constants.rowHeigh
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        let _ = [tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                 tableView.topAnchor.constraint(equalTo: view.topAnchor),
-                 tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-                 tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            ].map { $0.isActive = true }
-
+        NSLayoutConstraint.activate(
+            [tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+             tableView.topAnchor.constraint(equalTo: view.topAnchor),
+             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
         tableView.rx.itemSelected
             .bind { [unowned self] indexPath in
                 self.tableView
                     .deselectRow(at: indexPath, animated: true)
-            }.disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
     }
 }
 
@@ -67,26 +67,25 @@ extension NAMainViewController {
 
 extension NAMainViewController {
     private func bindViewModel() {
-
         let lastCellIndex = tableView.rx
             .willDisplayCell
             .map { $0.indexPath.row }
-
+        
         let refresh = refreshControl.rx
             .controlEvent(.valueChanged)
             .asObservable()
-
+        
         let modelSelected = tableView.rx
             .modelSelected(NewsModel.self)
             .asObservable()
-
+        
         let input = MainViewModel.Input(didLoad: didLoad.asObservable(),
                                         lastCellIndex: lastCellIndex,
                                         onRefresh: refresh,
                                         onSelectedModel: modelSelected)
-
+        
         let output = viewModel.transform(input: input)
-
+        
         output.news
             .bind(to: tableView
                 .rx
@@ -94,28 +93,28 @@ extension NAMainViewController {
                        cellType: NAListTableViewCell.self))
             { row, model, cell in
                 cell.fill(model)
-            }
-            .disposed(by: disposeBag)
-
+        }
+        .disposed(by: disposeBag)
+        
         output.isLoading
             .bind(to: refreshControl.rx.isRefreshing)
             .disposed(by: disposeBag)
-
+        
         output.errorMessage
             .bind { [unowned self] message in
                 self.alert(message: message)
                 Logger.log(message: "Error alert",
                            value: message,
                            logType: .error)
-            }
-            .disposed(by: disposeBag)
+        }
+        .disposed(by: disposeBag)
     }
 }
 
 // MARK: - Constants
 
 extension NAMainViewController {
-    struct Constants {
+    enum Constants {
         static let title = "News"
         static let rowHeigh: CGFloat = 100.0
     }

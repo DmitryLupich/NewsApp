@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class MainCoordinator: Coordinator {
     
@@ -39,5 +41,15 @@ final class MainCoordinator: Coordinator {
 
     func back() {
         navigationController.popViewController(animated: true)
+    }
+}
+
+extension MainCoordinator: ReactiveCompatible {}
+
+extension Reactive where Base: MainCoordinator {
+    var toDetails: Binder<NewsModel> {
+        return Binder(base) { coordinator, newsmModel in
+            coordinator.toDetails(newsmModel)
+        }
     }
 }

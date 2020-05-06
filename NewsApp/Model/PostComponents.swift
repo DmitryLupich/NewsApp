@@ -12,6 +12,6 @@ import UIKit.UITableViewCell
 enum PostComponents {
     case title(String)
     case date(String)
-    case image(String)
+    case image(String?)
     case content(String)
 }

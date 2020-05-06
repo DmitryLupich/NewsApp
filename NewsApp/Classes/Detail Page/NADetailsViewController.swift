@@ -33,11 +33,6 @@ final class NADetailsViewController: NABaseViewController {
         setupView()
         bindViewModel()
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        tableView.frame = view.frame
-    }
 }
 
 // MARK: - Setup View
@@ -45,13 +40,22 @@ final class NADetailsViewController: NABaseViewController {
 extension NADetailsViewController {
     private func setupView() {
         title = Constants.title
-        view.addSubview(tableView)
+
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.register(NATitleTableViewCell.self)
         tableView.register(NAImageTableViewCell.self)
+
+        view.addSubview(tableView)
+         tableView.translatesAutoresizingMaskIntoConstraints = false
+         NSLayoutConstraint.activate(
+             [tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+              tableView.topAnchor.constraint(equalTo: view.topAnchor),
+              tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+              tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+         ])
     }
 }
 
@@ -59,15 +63,12 @@ extension NADetailsViewController {
 
 extension NADetailsViewController {
     private func bindViewModel() {
-        
         let input = DetailsViewModel.Input()
         let output = viewModel.transform(input: input)
         
         output.postComponents
-            .bind(to: tableView.rx.items)
-            { (tableView, row, element) in
+            .bind(to: tableView.rx.items) { (tableView, row, element) in
                 switch element {
-                    
                 case .title(let title),
                      .content(let title),
                      .date(let title):
@@ -75,7 +76,6 @@ extension NADetailsViewController {
                         .dequeueReusableCell(forIndexPath: IndexPath(row: row, section: 0))
                     cell.fill(title: title)
                     return cell
-                    
                 case .image(let imageURL):
                     let cell: NAImageTableViewCell = tableView
                         .dequeueReusableCell(forIndexPath: IndexPath(row: row, section: 0))
@@ -88,7 +88,7 @@ extension NADetailsViewController {
 }
 
 extension NADetailsViewController {
-    struct Constants {
+    enum Constants {
         static let title = "Details"
     }
 }

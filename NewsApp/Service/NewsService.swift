@@ -45,7 +45,6 @@ extension NewsService: ServiceContract {
                 try self.handle(serverResponse: serverResponse)
             }
             .retry(3)
-            .catchErrorJustReturn([])
     }
 }
 

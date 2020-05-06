@@ -8,26 +8,21 @@
 
 import UIKit
 
-protocol ReuseIdentifiable
-{
+protocol ReuseIdentifiable {
     static var reuseIdentifier: String { get }
 }
 
-extension ReuseIdentifiable where Self: UICollectionReusableView
-{
-    static var reuseIdentifier: String
-    {
-        return String(describing: self)
+extension ReuseIdentifiable where Self: UICollectionReusableView {
+    static var reuseIdentifier: String {
+        String(describing: self)
     }
 }
 
 extension UICollectionReusableView: ReuseIdentifiable {}
 
-extension ReuseIdentifiable where Self: UITableViewCell
-{
-    static var reuseIdentifier: String
-    {
-        return String(describing: self)
+extension ReuseIdentifiable where Self: UITableViewCell {
+    static var reuseIdentifier: String {
+        String(describing: self)
     }
 }
 
