@@ -9,6 +9,8 @@
 import Foundation
 
 extension String {
+    static let empty: String = .init()
+    
     func removeHTMLTags() -> String {
         return self.replacingOccurrences(of: "<[^>]+>",
                                          with: "",

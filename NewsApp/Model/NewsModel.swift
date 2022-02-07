@@ -16,7 +16,7 @@ struct NewsModel {
     let date: String
     let contentRendered: ContentRendered
     let titleRendered: TitleRendered
-    let featuredMedia: FeaturedImage
+    let featuredMedia: FeaturedImage?
 }
 
 extension NewsModel: Codable {
@@ -51,7 +51,7 @@ extension NewsModel {
     func toPostComponentsAdapter() -> [PostComponents] {
         return [PostComponents.title(self.titleRendered.title),
                 PostComponents.date(self.date.formattedDate()),
-                PostComponents.image(self.featuredMedia.fullSizeUrl),
+                PostComponents.image(self.featuredMedia?.fullSizeUrl ?? .empty),
                 PostComponents.content(self.contentRendered.content)]
     }
 }
