@@ -10,7 +10,7 @@ import UIKit
 
 final class MainCoordinator: Coordinator {
     
-    private let service = NewsService(session: URLSession(configuration: .default))
+    private let service = NewsService(network: Networking(session: .init(configuration: .default)))
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {

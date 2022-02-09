@@ -6,12 +6,14 @@
 //  Copyright © 2019 Dmitry Lupich. All rights reserved.
 //
 
+import Combine
 import Foundation
 
 final class MainViewModel {
     
     // MARK: - Private Properties
     
+    private var cancellables = Set<AnyCancellable>()
     private let storage = StorageManager()
     private let service: ServiceContract
     private let coordinator: MainCoordinator
@@ -34,7 +36,7 @@ final class MainViewModel {
     public var publicDataSource: [NewsModel] {
         return dataSource.map { $0.preparedModel() }
     }
-
+    
     public var render: ((ListModel) -> Void)?
     
     // MARK: - Initialization
@@ -49,7 +51,7 @@ final class MainViewModel {
 // MARK: - Public Methods
 
 extension MainViewModel {
-
+    
     public func start() {
         isServiceAvaliable = true
         page = 1
@@ -60,7 +62,7 @@ extension MainViewModel {
             page += 1
         }
     }
-
+    
     public func selected(_ index: Int) {
         coordinator.toDetails(dataSource[index])
     }
@@ -69,30 +71,32 @@ extension MainViewModel {
 // MARK: - Private Methods
 
 extension MainViewModel {
-
+    
     private func loadModels(page: Int) {
-        service.latestNews(endPoint: Endpoint.latestNews(page: page))
-        { [unowned self] (result: Result<[NewsModel], Error>) in
-            DispatchQueue.main.async {
-                self.render?(.isLoading(false))
-                switch result {
-                case .success(let models):
-                    self.handleSuccess(models)
+        weak var weakSelf = self
+        service.latestNews(endpoint: Endpoint.latestNews(page: page))
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    Logger.log(value: "Finished")
                 case .failure(let error):
-                    self.handleFailure(error)
+                    weakSelf?.handleFailure(error)
                 }
+            } receiveValue: { news in
+                weakSelf?.handleSuccess(news)
             }
-        }
+            .store(in: &cancellables)
     }
-
+    
     private func handleSuccess(_ models: [NewsModel]) {
         isServiceAvaliable = true
         dataSource = (page == 1) ? models : dataSource + models
         storage.write(models: dataSource)
         render?(.data)
     }
-
-    private func handleFailure( _ error: Error) {
+    
+    private func handleFailure( _ error: NAError) {
         isServiceAvaliable = false
         dataSource = storage.read(modelType: NewsModel.self)
         render?(.data)

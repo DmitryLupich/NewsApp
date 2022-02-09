@@ -14,14 +14,14 @@ fileprivate struct Constants {
     static let generic = "Sorry, try again later"
 }
 
-enum NAError {
+public enum NAError {
     case badUrl
     case mapping
     case generic
 }
 
 extension NAError: Error {
-    var localizedDescription: String {
+    public var localizedDescription: String {
         switch self {
         case .badUrl:
             return Constants.badUrl

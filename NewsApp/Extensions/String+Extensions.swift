@@ -17,7 +17,7 @@ extension String {
                                          options: .regularExpression,
                                          range: nil)
     }
-
+    
     func formattedDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -25,7 +25,7 @@ extension String {
         dateFormatter.dateStyle = DateFormatter.Style.medium
         guard
             let dateOfTypeDate = dateFormatter.date(from: self)
-            else { return "" }
+        else { return "" }
         let stringDate = dateFormatter
             .string(from: dateOfTypeDate)
             .lowercased()

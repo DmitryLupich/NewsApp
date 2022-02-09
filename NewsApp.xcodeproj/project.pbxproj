@@ -51,6 +51,8 @@
 		F12C786627B14A6A00A62873 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = F12C786527B14A6A00A62873 /* ComposableArchitecture */; };
 		F12C786727B14A7500A62873 /* TCA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12C785927B14A4300A62873 /* TCA.framework */; };
 		F12C786827B14A7500A62873 /* TCA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F12C785927B14A4300A62873 /* TCA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F12C786E27B2BD9B00A62873 /* ListStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12C786C27B2BD9600A62873 /* ListStore.swift */; };
+		F197CA5827B3B74D00E74B43 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F197CA5727B3B74D00E74B43 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +145,8 @@
 		F12C784627B1304E00A62873 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		F12C785927B14A4300A62873 /* TCA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TCA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F12C785B27B14A4300A62873 /* TCA.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TCA.h; sourceTree = "<group>"; };
+		F12C786C27B2BD9600A62873 /* ListStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStore.swift; sourceTree = "<group>"; };
+		F197CA5727B3B74D00E74B43 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +200,7 @@
 		4745F6EB22D35FC70050C939 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				F12C786F27B3B63900A62873 /* Networking */,
 				4745F6EE22D35FFA0050C939 /* NewsService.swift */,
 				4745F6F722D361D70050C939 /* NAError.swift */,
 				4745F6F322D360870050C939 /* Endpoint.swift */,
@@ -362,6 +367,7 @@
 			children = (
 				F12C784527B1303E00A62873 /* ListItem */,
 				F12C784327B12F8600A62873 /* ListPage.swift */,
+				F12C786C27B2BD9600A62873 /* ListStore.swift */,
 			);
 			path = ListPage;
 			sourceTree = "<group>";
@@ -387,6 +393,14 @@
 				F12C785B27B14A4300A62873 /* TCA.h */,
 			);
 			path = TCA;
+			sourceTree = "<group>";
+		};
+		F12C786F27B3B63900A62873 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				F197CA5727B3B74D00E74B43 /* NetworkService.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -572,6 +586,7 @@
 				47DC57DA22D4EA480046E353 /* NATitleTableViewCell.swift in Sources */,
 				47F73A5222D355300067C4B4 /* Coordinator.swift in Sources */,
 				473F561C22D35B0400387020 /* Logger.swift in Sources */,
+				F197CA5827B3B74D00E74B43 /* NetworkService.swift in Sources */,
 				47F73A5722D3558B0067C4B4 /* Reusable.swift in Sources */,
 				47C83B3322D8C2F0005DF6B8 /* String+Extensions.swift in Sources */,
 				47DBAE5B22D38AF2000B031B /* Alertable.swift in Sources */,
@@ -594,6 +609,7 @@
 			files = (
 				F12C784F27B145FD00A62873 /* ListPage.swift in Sources */,
 				F12C784727B1304E00A62873 /* ListItem.swift in Sources */,
+				F12C786E27B2BD9B00A62873 /* ListStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

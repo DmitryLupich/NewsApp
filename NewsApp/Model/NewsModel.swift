@@ -10,13 +10,12 @@ import Foundation
 
 typealias Identifier = Int
 
-struct NewsModel {
-    
-    let id: Int
-    let date: String
-    let contentRendered: ContentRendered
-    let titleRendered: TitleRendered
-    let featuredMedia: FeaturedImage?
+public struct NewsModel {
+    public let id: Int
+    public let date: String
+    public let contentRendered: ContentRendered
+    public let titleRendered: TitleRendered
+    public let featuredMedia: FeaturedImage?
 }
 
 extension NewsModel: Codable {
@@ -56,22 +55,22 @@ extension NewsModel {
     }
 }
 
-struct TitleRendered: Codable {
-    var title: String
+public struct TitleRendered: Codable {
+    public var title: String
     private enum CodingKeys: String, CodingKey {
         case title = "rendered"
     }
 }
 
-struct ContentRendered: Codable {
-    var content: String
+public struct ContentRendered: Codable {
+    public var content: String
     private enum CodingKeys: String, CodingKey {
         case content = "rendered"
     }
 }
 
-struct FeaturedImage: Codable {
-    var fullSizeUrl: String
+public struct FeaturedImage: Codable {
+    public var fullSizeUrl: String
     private enum CodingKeys: String, CodingKey {
         case fullSizeUrl = "source_url"
     }
