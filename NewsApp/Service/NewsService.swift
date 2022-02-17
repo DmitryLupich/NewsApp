@@ -11,7 +11,7 @@ import Foundation
 
 // MARK: - Service Contract
 
-public protocol ServiceContract {
+public protocol NewsServiceContract {
     func latestNews(endpoint: Endpoint) -> AnyPublisher<[NewsModel], NAError>
 }
 
@@ -27,7 +27,7 @@ public final class NewsService {
 
 // MARK: - Protocol Methods
 
-extension NewsService: ServiceContract {
+extension NewsService: NewsServiceContract {
     public func latestNews<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<[T], NAError> {
         network.request(endpoint: endpoint)
     }

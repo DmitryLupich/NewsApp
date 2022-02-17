@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension String {
+public extension String {
     static let empty: String = .init()
     
     func removeHTMLTags() -> String {

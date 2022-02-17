@@ -10,12 +10,16 @@ import Foundation
 
 typealias Identifier = Int
 
-public struct NewsModel {
+public struct NewsModel: Equatable, Identifiable {
     public let id: Int
     public let date: String
     public let contentRendered: ContentRendered
     public let titleRendered: TitleRendered
     public let featuredMedia: FeaturedImage?
+    
+    public static func ==(lhs: NewsModel, rhs: NewsModel) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 extension NewsModel: Codable {
@@ -46,12 +50,12 @@ extension NewsModel {
     }
 }
 
-extension NewsModel {
+public extension NewsModel {
     func toPostComponentsAdapter() -> [PostComponents] {
-        return [PostComponents.title(self.titleRendered.title),
-                PostComponents.date(self.date.formattedDate()),
-                PostComponents.image(self.featuredMedia?.fullSizeUrl ?? .empty),
-                PostComponents.content(self.contentRendered.content)]
+        [PostComponents.title(self.titleRendered.title),
+         PostComponents.date(self.date.formattedDate()),
+         PostComponents.image(self.featuredMedia?.fullSizeUrl ?? .empty),
+         PostComponents.content(self.contentRendered.content)]
     }
 }
 

@@ -8,7 +8,6 @@
 
 import Combine
 import Foundation
-import simd
 
 public protocol NetworkContract {
     func request<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, NAError>

@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import UIKit.UITableViewCell
 
-enum PostComponents {
+public enum PostComponents {
     case title(String)
     case date(String)
     case image(String)
