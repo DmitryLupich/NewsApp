@@ -37,15 +37,25 @@ public struct AppState: Equatable {
 
 public enum AppAction: Equatable {
     case list(ListAction)
-    case details
 }
 
 //MARK: - App Reducer
 
-let appReducer = Reducer<AppState, AppAction, AppEnvironment> { _, _, _ in  .none }
-    .combined(with:
-                listReducer
-                .pullback(state: \.listState,
-                          action: /AppAction.list,
-                          environment: { $0.listEnvironment })
-    )
+let appReducer = Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
+    switch action {
+    case .list(let listAction):
+        switch listAction {
+        case .details(let post):
+            state.currentScreen = .details(post)
+            return .none
+        default:
+            state.currentScreen = .list
+            return .none
+        }
+    }
+}.combined(with:
+            listReducer
+            .pullback(state: \.listState,
+                      action: /AppAction.list,
+                      environment: { $0.listEnvironment })
+)

@@ -22,14 +22,15 @@ public struct ListView: View {
     
     public var body: some View {
         WithViewStore(self.store) { viewStore in
-            ScrollView {
-                ForEach(viewStore.state.news) { post in
-                    ListItem(model: .init(
-                        imageURL: post.featuredMedia.flatMap { URL(string: $0.fullSizeUrl) },
-                        title: post.titleRendered.title.removeHTMLTags(),
-                        decription: post.contentRendered.content.removeHTMLTags())
-                    ).onTapGesture {
-                        viewStore.send(.details(post))
+            List(viewStore.news, id: \.id) { post in
+                ListItem(model: .init(
+                    imageURL: post.featuredMedia.flatMap { URL(string: $0.fullSizeUrl) },
+                    title: post.titleRendered.title.removeHTMLTags(),
+                    decription: post.contentRendered.content.removeHTMLTags())
+                ).onTapGesture { viewStore.send(.details(post)) }
+                .onAppear {
+                    if post == viewStore.news.last {
+                        viewStore.send(.scrollToBottomPage)
                     }
                 }
             }
