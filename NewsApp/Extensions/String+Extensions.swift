@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension String {
+public extension String {
     func removeHTMLTags() -> String {
         return self.replacingOccurrences(of: "<[^>]+>",
                                          with: "",
