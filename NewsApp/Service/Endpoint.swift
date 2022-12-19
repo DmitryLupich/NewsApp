@@ -13,11 +13,11 @@ public enum HTTPMethod: String {
 }
 
 public enum Endpoint {
-    case latestNews(page: Int)
+    case news(page: Int)
 
     private var path: String {
         switch self {
-        case .latestNews(let page):
+        case .news(let page):
             return baseURL + "posts/?page=\(page)"
         }
     }
@@ -30,7 +30,7 @@ public enum Endpoint {
 
     public var httpMethod: String {
         switch self {
-        case .latestNews:
+        case .news:
             return HTTPMethod.get.rawValue
         }
     }

@@ -11,24 +11,25 @@ import Foundation
 
 // MARK: - Service Contract
 
-public protocol NewsServiceContract {
-    func latestNews(endpoint: Endpoint) -> AnyPublisher<[NewsModel], NAError>
+public protocol NewsServiceProtocol {
+    func news(for page: Int) -> AnyPublisher<[NewsModel], NAError>
 }
 
 // MARK: - News Service
 
 public final class NewsService {
     internal let jsonDecoder = JSONDecoder()
-    private let network: NetworkContract
-    public init(network: NetworkContract) {
+    private let network: NetworkProtocol
+
+    public init(network: NetworkProtocol) {
         self.network = network
     }
 }
 
 // MARK: - Protocol Methods
 
-extension NewsService: NewsServiceContract {
-    public func latestNews<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<[T], NAError> {
-        network.request(endpoint: endpoint)
+extension NewsService: NewsServiceProtocol {
+    public func news(for page: Int) -> AnyPublisher<[NewsModel], NAError> {
+        network.request(endpoint: .news(page: page))
     }
 }

@@ -9,6 +9,7 @@
 
 import Kingfisher
 import SwiftUI
+import Common
 
 //MARK: - View
 
@@ -21,9 +22,7 @@ public struct ListItem: SwiftUI.View {
     
     public var body: some SwiftUI.View {
         HStack(spacing: 8) {
-            KFImage(model.imageURL)
-                .resizable()
-                .scaledToFill()
+            Color.red
                 .frame(width: 80, height: 80)
                 .cornerRadius(8)
                 .clipped()
@@ -50,13 +49,14 @@ public struct ListItem: SwiftUI.View {
 
 public extension ListItem {
     struct Model {
-        public let imageURL: URL?
         public let title, decription: String
-        
-        static let mock: Self = .init(
-            imageURL: URL(string: "https://miuc.org/wp-content/uploads/2016/12/apple-intro.jpg"),
-            title: "Test Title Test Title Test Title Test Title Test Title Test Title",
-            decription: "Test Description Test Description Test Description Test Description Test Description Test Description Test Description Test Description")
+
+        public init(post: NewsModel) {
+            self.title = post.titleRendered.title.removeHTMLTags()
+            self.decription = post.contentRendered.content.removeHTMLTags()
+        }
+
+        static let mock: Self = .init(post: .mock)
     }
 }
 

@@ -20,6 +20,14 @@ public struct NewsModel: Equatable, Identifiable {
     public static func ==(lhs: NewsModel, rhs: NewsModel) -> Bool {
         lhs.id == rhs.id
     }
+
+    public static let mock: Self = .init(
+        id: 1,
+        date: "11:11:11",
+        contentRendered: .init(content: "Content goes here"),
+        titleRendered: .init(title: "Title Header"),
+        featuredMedia: nil
+    )
 }
 
 extension NewsModel: Codable {

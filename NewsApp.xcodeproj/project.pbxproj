@@ -13,6 +13,10 @@
 		47F73A4322D354A40067C4B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47F73A4222D354A40067C4B4 /* Assets.xcassets */; };
 		47F73A4622D354A40067C4B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47F73A4422D354A40067C4B4 /* LaunchScreen.storyboard */; };
 		47FE097922D7758600638B49 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FE097822D7758600638B49 /* StorageManager.swift */; };
+		90310024294DF7FE009164F7 /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F175F82A27BBCC2C00C05114 /* Common.framework */; };
+		90310025294DF7FE009164F7 /* Common.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F175F82A27BBCC2C00C05114 /* Common.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		90310028294DF809009164F7 /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F175F82A27BBCC2C00C05114 /* Common.framework */; };
+		90310029294DF809009164F7 /* Common.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F175F82A27BBCC2C00C05114 /* Common.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F12C782D27B1201600A62873 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F12C782C27B1201600A62873 /* Kingfisher */; };
 		F12C783927B1293000A62873 /* ListPage.h in Headers */ = {isa = PBXBuildFile; fileRef = F12C783827B1293000A62873 /* ListPage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F12C783C27B1293000A62873 /* ListPage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12C783627B1293000A62873 /* ListPage.framework */; };
@@ -50,6 +54,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		90310026294DF7FE009164F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 47F73A3022D354A30067C4B4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F175F82927BBCC2C00C05114;
+			remoteInfo = Common;
+		};
+		9031002A294DF809009164F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 47F73A3022D354A30067C4B4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F175F82927BBCC2C00C05114;
+			remoteInfo = Common;
+		};
 		F12C783A27B1293000A62873 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 47F73A3022D354A30067C4B4 /* Project object */;
@@ -88,6 +106,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		9031002C294DF809009164F7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				90310029294DF809009164F7 /* Common.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F12C783E27B1293000A62873 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -109,6 +138,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				F12C786827B14A7500A62873 /* TCA.framework in Embed Frameworks */,
+				90310025294DF7FE009164F7 /* Common.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,6 +198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90310024294DF7FE009164F7 /* Common.framework in Frameworks */,
 				F12C784A27B1430C00A62873 /* Kingfisher in Frameworks */,
 				F12C786727B14A7500A62873 /* TCA.framework in Frameworks */,
 			);
@@ -192,6 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90310028294DF809009164F7 /* Common.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +514,7 @@
 			);
 			dependencies = (
 				F12C786A27B14A7500A62873 /* PBXTargetDependency */,
+				90310027294DF7FE009164F7 /* PBXTargetDependency */,
 			);
 			name = ListPage;
 			packageProductDependencies = (
@@ -538,10 +571,12 @@
 				F175F84127C3F1DF00C05114 /* Sources */,
 				F175F84227C3F1DF00C05114 /* Frameworks */,
 				F175F84327C3F1DF00C05114 /* Resources */,
+				9031002C294DF809009164F7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9031002B294DF809009164F7 /* PBXTargetDependency */,
 			);
 			name = DetailsPage;
 			productName = DetailsPage;
@@ -703,6 +738,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		90310027294DF7FE009164F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F175F82927BBCC2C00C05114 /* Common */;
+			targetProxy = 90310026294DF7FE009164F7 /* PBXContainerItemProxy */;
+		};
+		9031002B294DF809009164F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F175F82927BBCC2C00C05114 /* Common */;
+			targetProxy = 9031002A294DF809009164F7 /* PBXContainerItemProxy */;
+		};
 		F12C783B27B1293000A62873 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F12C783527B1293000A62873 /* ListPage */;
@@ -1112,7 +1157,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Dmitry Lupich. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1145,7 +1190,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Dmitry Lupich. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

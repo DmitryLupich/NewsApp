@@ -6,30 +6,27 @@
 //  Copyright © 2022 Dmitry Lupich. All rights reserved.
 //
 
-import Foundation
-import Combine
 import Common
-import ComposableArchitecture
-import ListPage
+import Combine
 import SwiftUI
+import ListPage
+import Foundation
+import DetailsPage
+import ComposableArchitecture
 
 //MARK: - Screens
-
-public enum AppScreen: Equatable {
-    case list
-    case details(NewsModel)
-}
 
 //MARK: - App State
 
 public struct AppState: Equatable {
-    var currentScreen: AppScreen
-    
+    var shouldShowDetails: Bool
     var listState: ListState
+    var detailsState: DetailsState
     
     static let initial: Self = .init(
-        currentScreen: .list,
-        listState: .init(news: [])
+        shouldShowDetails: false,
+        listState: .init(news: []),
+        detailsState: .init(post: .mock)
     )
 }
 
@@ -46,16 +43,20 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment> { state, action, e
     case .list(let listAction):
         switch listAction {
         case .details(let post):
-            state.currentScreen = .details(post)
+            state.detailsState = .init(post: post)
+            state.shouldShowDetails = true
+            state.listState.shouldShowDetails = true
+            return .none
+        case .detailsDismissed:
+            state.shouldShowDetails = false
             return .none
         default:
-            state.currentScreen = .list
             return .none
         }
     }
 }.combined(with:
             listReducer
-            .pullback(state: \.listState,
-                      action: /AppAction.list,
-                      environment: { $0.listEnvironment })
+    .pullback(state: \.listState,
+              action: /AppAction.list,
+              environment: { $0.listEnvironment })
 )

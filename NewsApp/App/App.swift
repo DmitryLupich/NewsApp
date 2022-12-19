@@ -16,10 +16,14 @@ struct NewsApp: App {
     var body: some Scene {
         WindowGroup {
             AppView(
-                store: Store(
+                store: .init(
                     initialState: .initial,
                     reducer: appReducer,
-                    environment: .init(networking: Networking(session: .shared))
+                    environment: .init(
+                        networking: Networking(
+                            session: .shared
+                        )
+                    )
                 )
             )
         }

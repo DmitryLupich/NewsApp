@@ -11,6 +11,10 @@ import Common
 
 public struct DetailsState: Equatable {
     public let post: NewsModel
+
+    public init(post: NewsModel) {
+        self.post = post
+    }
 }
 
 public enum DetailsAction: Equatable {}

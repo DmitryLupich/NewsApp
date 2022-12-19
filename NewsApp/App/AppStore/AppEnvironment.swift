@@ -14,11 +14,11 @@ import ListPage
 
 public struct AppEnvironment {
     public let listEnvironment: ListEnvironment
-    private let networking: NetworkContract
+    private let networking: NetworkProtocol
     
-    public init(networking: NetworkContract) {
+    public init(networking: NetworkProtocol) {
         self.networking = networking
-        let newsSerivce: NewsServiceContract = NewsService(network: networking)
+        let newsSerivce: NewsServiceProtocol = NewsService(network: networking)
         self.listEnvironment = .init(newsService: newsSerivce)
     }
 }

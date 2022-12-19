@@ -6,9 +6,8 @@
 //  Copyright © 2022 Dmitry Lupich. All rights reserved.
 //
 
-import Kingfisher
+//import Kingfisher
 import SwiftUI
-
 
 public struct DetailsPage: View {
     public var body: some View {
