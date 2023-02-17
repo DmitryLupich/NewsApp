@@ -58,15 +58,6 @@ extension NewsModel {
     }
 }
 
-public extension NewsModel {
-    func toPostComponentsAdapter() -> [PostComponents] {
-        [PostComponents.title(self.titleRendered.title),
-         PostComponents.date(self.date.formattedDate()),
-         PostComponents.image(self.featuredMedia?.fullSizeUrl ?? .empty),
-         PostComponents.content(self.contentRendered.content)]
-    }
-}
-
 public struct TitleRendered: Codable {
     public var title: String
     private enum CodingKeys: String, CodingKey {

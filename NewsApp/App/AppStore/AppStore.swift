@@ -1,5 +1,5 @@
 //
-//  AppState.swift
+//  AppStore.swift
 //  NewsApp
 //
 //  Created by Dmytro Lupych on 2/11/22.
@@ -14,17 +14,19 @@ import Foundation
 import DetailsPage
 import ComposableArchitecture
 
-//MARK: - Screens
-
 //MARK: - App State
 
 public struct AppState: Equatable {
-    var shouldShowDetails: Bool
+    public enum Route: Hashable {
+        case details
+    }
+
+    var path: [Route] = []
     var listState: ListState
     var detailsState: DetailsState
     
     static let initial: Self = .init(
-        shouldShowDetails: false,
+        path: [],
         listState: .init(news: []),
         detailsState: .init(post: .mock)
     )
@@ -34,29 +36,27 @@ public struct AppState: Equatable {
 
 public enum AppAction: Equatable {
     case list(ListAction)
+    case details(DetailsAction)
+    case path([AppState.Route])
 }
 
 //MARK: - App Reducer
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
     switch action {
-    case .list(let listAction):
-        switch listAction {
-        case .details(let post):
-            state.detailsState = .init(post: post)
-            state.shouldShowDetails = true
-            state.listState.shouldShowDetails = true
-            return .none
-        case .detailsDismissed:
-            state.shouldShowDetails = false
-            return .none
-        default:
-            return .none
-        }
+    case let .list(.details(post)):
+        state.detailsState = .init(post: post)
+        state.path = [.details]
+        return .none
+    case .path(let newPath):
+        state.path = newPath
+        return .none
+    default:
+        return .none
     }
 }.combined(with:
             listReducer
     .pullback(state: \.listState,
               action: /AppAction.list,
-              environment: { $0.listEnvironment })
+              environment: \.listEnvironment)
 )

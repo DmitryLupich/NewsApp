@@ -25,9 +25,7 @@ public struct ListView: View {
             List(viewStore.news, id: \.id) { post in
                 ListItem(model: .init(post: post))
                     .onTapGesture { viewStore.send(.details(post)) }
-                    .onAppear {
-                        viewStore.send(.onAppear(post))
-                    }
+                    .onAppear { viewStore.send(.onAppear(post)) }
             }
         }
     }

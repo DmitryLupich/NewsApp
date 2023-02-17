@@ -8,6 +8,7 @@
 
 import ListPage
 import SwiftUI
+import DetailsPage
 import ComposableArchitecture
 
 struct AppView: View {
@@ -15,11 +16,32 @@ struct AppView: View {
     
     var body: some View {
         WithViewStore.init(self.store) { viewStore in
-            ListView(store: store.scope(
-                state: \.listState,
-                action: AppAction.list)
-            ).onAppear {
-                viewStore.start()
+            NavigationStack(
+                path: viewStore.binding(
+                    get: \.path,
+                    send: .path([])
+                )
+            ) {
+                ListView(
+                    store: store.scope(
+                        state: \.listState,
+                        action: AppAction.list
+                    )
+                )
+                .onAppear {
+                    viewStore.start()
+                }
+                .navigationDestination(for: AppState.Route.self) { route in
+                    switch route {
+                    case .details:
+                        DetailsPage(
+                            store: store.scope(
+                                state: \.detailsState,
+                                action: AppAction.details
+                            )
+                        )
+                    }
+                }
             }
         }
     }

@@ -10,30 +10,28 @@ import Common
 import ComposableArchitecture
 import Foundation
 
-//MARK: - Action
+//MARK: - List State
+
+public struct ListState: Equatable {
+    public var page: Int = 1
+    public var news: [NewsModel]
+
+    public init(news: [NewsModel]) {
+        self.news = news
+    }
+}
+
+//MARK: - List Action
 
 public enum ListAction: Equatable {
     case start
-    case detailsDismissed
     case didScrollToBottom
     case details(NewsModel)
     case onAppear(NewsModel)
     case loadedNews([NewsModel])
 }
 
-//MARK: - State
-
-public struct ListState: Equatable {
-    public var page: Int = 1
-    public var news: [NewsModel]
-    public var shouldShowDetails: Bool = false
-    
-    public init(news: [NewsModel]) {
-        self.news = news
-    }
-}
-
-//MARK: - Reducer
+//MARK: - List Reducer
 
 public let listReducer = Reducer<ListState, ListAction, ListEnvironment>
     .init { state, action, environment in
@@ -55,18 +53,5 @@ public let listReducer = Reducer<ListState, ListAction, ListEnvironment>
         case .onAppear(let post):
             return post == state.news.last ?
             Effect.init(value: ListAction.didScrollToBottom) : .none
-        case .detailsDismissed:
-            state.shouldShowDetails = false
-            return .none
         }
     }
-
-//MARK: - Environment
-
-public struct ListEnvironment {
-    public let newsService: NewsServiceProtocol
-    
-    public init(newsService: NewsServiceProtocol) {
-        self.newsService = newsService
-    }
-}

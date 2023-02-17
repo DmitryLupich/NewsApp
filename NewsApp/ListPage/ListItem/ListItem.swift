@@ -22,20 +22,21 @@ public struct ListItem: SwiftUI.View {
     
     public var body: some SwiftUI.View {
         HStack(spacing: 8) {
-            Color.red
+            KFImage(model.url)
+                .placeholder { Color.random }
                 .frame(width: 80, height: 80)
                 .cornerRadius(8)
                 .clipped()
                 .padding([.leading, .top, .bottom], 8)
             VStack(spacing: 8) {
-                HStack {
+                HStack(spacing: .zero) {
                     Text(model.title)
                         .lineLimit(2)
                         .font(.system(size: 15))
                     Spacer()
                 }
-                HStack {
-                    Text(model.decription)
+                HStack(spacing: .zero) {
+                    Text(model.description)
                         .lineLimit(3)
                         .font(.system(size: 11))
                     Spacer()
@@ -49,11 +50,13 @@ public struct ListItem: SwiftUI.View {
 
 public extension ListItem {
     struct Model {
-        public let title, decription: String
+        public let title, description: String
+        public let url: URL?
 
         public init(post: NewsModel) {
             self.title = post.titleRendered.title.removeHTMLTags()
-            self.decription = post.contentRendered.content.removeHTMLTags()
+            self.description = post.contentRendered.content.removeHTMLTags()
+            self.url = post.featuredMedia.flatMap { URL(string: $0.fullSizeUrl) }
         }
 
         static let mock: Self = .init(post: .mock)
