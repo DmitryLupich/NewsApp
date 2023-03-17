@@ -6,9 +6,7 @@
 //  Copyright © 2022 Dmitry Lupich. All rights reserved.
 //
 
-import ListPage
 import SwiftUI
-import DetailsPage
 import ComposableArchitecture
 
 struct AppView: View {

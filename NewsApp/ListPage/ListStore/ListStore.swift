@@ -6,9 +6,8 @@
 //  Copyright © 2022 Dmitry Lupich. All rights reserved.
 //
 
-import Common
-import ComposableArchitecture
 import Foundation
+import ComposableArchitecture
 
 //MARK: - List State
 
