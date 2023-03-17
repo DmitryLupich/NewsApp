@@ -22,12 +22,15 @@ public struct ListItem: SwiftUI.View {
     
     public var body: some SwiftUI.View {
         HStack(spacing: 8) {
-            KFImage(model.url)
-                .placeholder { Color.random }
-                .frame(width: 80, height: 80)
-                .cornerRadius(8)
-                .clipped()
-                .padding([.leading, .top, .bottom], 8)
+            AsyncImage(url: model.url) { image in
+                image
+            } placeholder: {
+                Color.random
+            }
+            .frame(width: 80, height: 80)
+            .cornerRadius(8)
+            .clipped()
+            .padding([.leading, .top, .bottom], 8)
             VStack(spacing: 8) {
                 HStack(spacing: .zero) {
                     Text(model.title)

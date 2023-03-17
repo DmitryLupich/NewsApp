@@ -8,8 +8,6 @@
 
 import Foundation
 
-typealias Identifier = Int
-
 public struct NewsModel: Equatable, Identifiable {
     public let id: Int
     public let date: String
@@ -50,11 +48,13 @@ extension NewsModel {
         preparedTitleRendered.title = self.titleRendered
             .title
             .removeHTMLTags()
-        return NewsModel(id: self.id,
-                         date: self.date,
-                         contentRendered: preparedContentRenderd,
-                         titleRendered: preparedTitleRendered,
-                         featuredMedia: self.featuredMedia)
+        return NewsModel(
+            id: self.id,
+            date: self.date,
+            contentRendered: preparedContentRenderd,
+            titleRendered: preparedTitleRendered,
+            featuredMedia: self.featuredMedia
+        )
     }
 }
 

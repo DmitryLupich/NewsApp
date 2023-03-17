@@ -18,14 +18,11 @@
 		9074CC3F299F9609009F008D /* TCA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12C785927B14A4300A62873 /* TCA.framework */; };
 		9074CC40299F9609009F008D /* TCA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F12C785927B14A4300A62873 /* TCA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9074CC44299F9B03009F008D /* ListEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074CC43299F9B03009F008D /* ListEnvironment.swift */; };
-		9074CC46299F9CA2009F008D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 9074CC45299F9CA2009F008D /* Kingfisher */; };
 		9074CC48299F9D69009F008D /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9074CC47299F9D69009F008D /* Color+Extensions.swift */; };
-		F12C782D27B1201600A62873 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F12C782C27B1201600A62873 /* Kingfisher */; };
 		F12C783927B1293000A62873 /* ListPage.h in Headers */ = {isa = PBXBuildFile; fileRef = F12C783827B1293000A62873 /* ListPage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F12C783C27B1293000A62873 /* ListPage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12C783627B1293000A62873 /* ListPage.framework */; };
 		F12C783D27B1293000A62873 /* ListPage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F12C783627B1293000A62873 /* ListPage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F12C784727B1304E00A62873 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12C784627B1304E00A62873 /* ListItem.swift */; };
-		F12C784A27B1430C00A62873 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F12C784927B1430C00A62873 /* Kingfisher */; };
 		F12C784F27B145FD00A62873 /* ListPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12C784327B12F8600A62873 /* ListPage.swift */; };
 		F12C785C27B14A4300A62873 /* TCA.h in Headers */ = {isa = PBXBuildFile; fileRef = F12C785B27B14A4300A62873 /* TCA.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F12C785F27B14A4300A62873 /* TCA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12C785927B14A4300A62873 /* TCA.framework */; };
@@ -195,7 +192,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F12C782D27B1201600A62873 /* Kingfisher in Frameworks */,
 				F175F83027BBCC2C00C05114 /* Common.framework in Frameworks */,
 				F175F84B27C3F1DF00C05114 /* DetailsPage.framework in Frameworks */,
 				F12C783C27B1293000A62873 /* ListPage.framework in Frameworks */,
@@ -208,7 +204,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				90310024294DF7FE009164F7 /* Common.framework in Frameworks */,
-				F12C784A27B1430C00A62873 /* Kingfisher in Frameworks */,
 				F12C786727B14A7500A62873 /* TCA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,7 +227,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9074CC46299F9CA2009F008D /* Kingfisher in Frameworks */,
 				90310028294DF809009164F7 /* Common.framework in Frameworks */,
 				9074CC3F299F9609009F008D /* TCA.framework in Frameworks */,
 			);
@@ -496,7 +490,6 @@
 			);
 			name = NewsApp;
 			packageProductDependencies = (
-				F12C782C27B1201600A62873 /* Kingfisher */,
 			);
 			productName = NewsApp;
 			productReference = 47F73A3822D354A30067C4B4 /* NewsApp.app */;
@@ -520,7 +513,6 @@
 			);
 			name = ListPage;
 			packageProductDependencies = (
-				F12C784927B1430C00A62873 /* Kingfisher */,
 			);
 			productName = ListPage;
 			productReference = F12C783627B1293000A62873 /* ListPage.framework */;
@@ -583,7 +575,6 @@
 			);
 			name = DetailsPage;
 			packageProductDependencies = (
-				9074CC45299F9CA2009F008D /* Kingfisher */,
 			);
 			productName = DetailsPage;
 			productReference = F175F84527C3F1DF00C05114 /* DetailsPage.framework */;
@@ -628,7 +619,6 @@
 			);
 			mainGroup = 47F73A2F22D354A30067C4B4;
 			packageReferences = (
-				F12C782B27B1201600A62873 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				F12C786427B14A6A00A62873 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 47F73A3922D354A30067C4B4 /* Products */;
@@ -1280,14 +1270,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F12C782B27B1201600A62873 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
 		F12C786427B14A6A00A62873 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
@@ -1299,21 +1281,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9074CC45299F9CA2009F008D /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F12C782B27B1201600A62873 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-		F12C782C27B1201600A62873 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F12C782B27B1201600A62873 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-		F12C784927B1430C00A62873 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F12C782B27B1201600A62873 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
 		F12C786527B14A6A00A62873 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F12C786427B14A6A00A62873 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;

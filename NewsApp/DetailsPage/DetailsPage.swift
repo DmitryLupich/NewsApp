@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 import ComposableArchitecture
 
 public struct DetailsPage: View {
@@ -23,9 +22,12 @@ public struct DetailsPage: View {
                 VStack(spacing: 16) {
                     Text(viewStore.state.title)
                         .font(.title)
-                    KFImage(viewStore.imageUrl)
-                        .placeholder { Color.random }
-                        .frame(height: 256)
+                    AsyncImage.init(url: viewStore.imageUrl) { image in
+                        image
+                    } placeholder: {
+                        Color.random
+                    }
+                    .frame(height: 256)
                     HStack(spacing: .zero) {
                         Text(viewStore.state.date)
                             .font(.subheadline)
