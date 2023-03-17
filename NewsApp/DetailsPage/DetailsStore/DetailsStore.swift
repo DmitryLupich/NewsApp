@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Common
 
 //MARK: - Details State
 

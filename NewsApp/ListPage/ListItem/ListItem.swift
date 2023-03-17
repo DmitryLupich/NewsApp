@@ -6,10 +6,7 @@
 //  Copyright © 2022 Dmitry Lupich. All rights reserved.
 //
 
-
-import Kingfisher
 import SwiftUI
-import Common
 
 //MARK: - View
 

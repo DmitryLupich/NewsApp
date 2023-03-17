@@ -6,8 +6,6 @@
 //  Copyright © 2023 Dmitry Lupich. All rights reserved.
 //
 
-import Common
-
 //MARK: - List Environment
 
 public struct ListEnvironment {

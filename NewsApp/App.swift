@@ -6,10 +6,8 @@
 //  Copyright © 2022 Dmitry Lupich. All rights reserved.
 //
 
-import Common
-import ComposableArchitecture
-import ListPage
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct NewsApp: App {
