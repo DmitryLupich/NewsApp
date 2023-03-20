@@ -5,21 +5,28 @@ import PackageDescription
 
 let package = Package(
     name: "NewsApplication",
+    platforms: [.iOS(.v16)],
     products: [
-        .library(
-            name: "NewsApplication",
-            targets: ["NewsApplication"]),
         .library(
             name: "Utility",
             targets: ["Utility"]),
+        .library(
+            name: "Networking",
+            targets: ["Networking"]),
+        .library(
+            name: "Models",
+            targets: ["Models"]),
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "NewsApplication",
-            dependencies: []),
-        .target(
             name: "Utility",
             dependencies: []),
+        .target(
+            name: "Networking",
+            dependencies: []),
+        .target(
+            name: "Models",
+            dependencies: ["Utility"]),
     ]
 )

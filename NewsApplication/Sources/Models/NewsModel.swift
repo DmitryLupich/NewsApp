@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Utility
 
-public struct NewsModel: Equatable, Identifiable {
+public struct NewsModel: Equatable, Identifiable, Codable {
     public let id: Int
     public let date: String
     public let contentRendered: ContentRendered
@@ -26,10 +27,7 @@ public struct NewsModel: Equatable, Identifiable {
         titleRendered: .init(title: "Title Header"),
         featuredMedia: nil
     )
-}
 
-extension NewsModel: Codable {
-    
     private enum CodingKeys: String, CodingKey {
         case id, date
         case titleRendered = "title"
@@ -38,7 +36,7 @@ extension NewsModel: Codable {
     }
 }
 
-extension NewsModel {
+public extension NewsModel {
     func preparedModel () -> NewsModel {
         var preparedContentRenderd = self.contentRendered
         preparedContentRenderd.content = self.contentRendered

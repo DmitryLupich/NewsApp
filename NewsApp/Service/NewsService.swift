@@ -6,8 +6,11 @@
 //  Copyright © 2019 Dmitry Lupich. All rights reserved.
 //
 
+import Models
 import Combine
 import Foundation
+import Networking
+
 
 // MARK: - Service Contract
 

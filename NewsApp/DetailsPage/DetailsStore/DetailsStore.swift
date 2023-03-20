@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Models
 
 //MARK: - Details State
 

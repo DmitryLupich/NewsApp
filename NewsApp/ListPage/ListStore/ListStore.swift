@@ -6,6 +6,7 @@
 //  Copyright © 2022 Dmitry Lupich. All rights reserved.
 //
 
+import Models
 import Foundation
 import ComposableArchitecture
 
