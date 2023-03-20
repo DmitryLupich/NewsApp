@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Utility
 
 public enum HTTPMethod: String {
     case get = "GET"

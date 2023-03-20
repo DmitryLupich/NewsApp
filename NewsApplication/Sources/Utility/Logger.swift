@@ -6,16 +6,16 @@
 //  Copyright © 2019 Dmitry Lupich. All rights reserved.
 //
 
-enum LogType: String
+public enum LogType: String
 {
     case info  = "💎 Info: "
     case error = "⛔️ Error: "
     case unexpected = "💩 Shit happens: "
 }
 
-struct Logger
+public struct Logger
 {
-    static func log(message: String = "", value: Any, logType: LogType = .info)
+    public static func log(message: String = "", value: Any, logType: LogType = .info)
     {
         #if DEBUG
         let text: String = logType.rawValue + message + " \(value)"

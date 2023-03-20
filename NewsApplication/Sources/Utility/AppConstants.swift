@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct AppConstants {
+public struct AppConstants {
     // MARK: - Wordpress REST API
-    enum Domain {
-        static let baseURL = "https://techcrunch.com/wp-json/wp/v2/"
+    public enum Domain {
+        public static let baseURL = "https://techcrunch.com/wp-json/wp/v2/"
     }
 }
