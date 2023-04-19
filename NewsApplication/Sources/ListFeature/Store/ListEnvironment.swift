@@ -6,7 +6,7 @@
 //  Copyright © 2023 Dmitry Lupich. All rights reserved.
 //
 
-//MARK: - List Environment
+import Service
 
 public struct ListEnvironment {
     public let newsService: NewsServiceProtocol

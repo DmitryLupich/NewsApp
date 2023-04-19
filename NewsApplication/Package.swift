@@ -16,6 +16,15 @@ let package = Package(
         .library(
             name: "Models",
             targets: ["Models"]),
+        .library(
+            name: "Service",
+            targets: ["Service"]),
+        .library(
+            name: "ListFeature",
+            targets: ["ListFeature"]),
+        .library(
+            name: "DetailsFeature",
+            targets: ["DetailsFeature"])
     ],
     dependencies: [],
     targets: [
@@ -28,5 +37,14 @@ let package = Package(
         .target(
             name: "Models",
             dependencies: ["Utility"]),
+        .target(
+            name: "Service",
+            dependencies: ["Networking", "Models"]),
+        .target(
+            name: "ListFeature",
+            dependencies: ["Service"]),
+        .target(
+            name: "DetailsFeature",
+            dependencies: ["Utility", "Models"])
     ]
 )

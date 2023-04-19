@@ -11,7 +11,6 @@ import Combine
 import Foundation
 import Networking
 
-
 // MARK: - Service Contract
 
 public protocol NewsServiceProtocol {

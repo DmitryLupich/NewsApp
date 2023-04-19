@@ -9,6 +9,8 @@
 import Combine
 import SwiftUI
 import Foundation
+import ListFeature
+import DetailsFeature
 import ComposableArchitecture
 
 //MARK: - App State
@@ -20,28 +22,28 @@ public struct AppFeature: ReducerProtocol {
         public enum Route: Hashable {
             case details
         }
-        
+
         var path: [Route] = []
         var listState: ListFeature.State
         var detailsState: DetailsFeature.State
-        
+
         static let initial: Self = .init(
             path: [],
             listState: .init(news: []),
             detailsState: .init(post: .mock)
         )
     }
-    
+
     //MARK: - Action
-    
+
     public enum Action: Equatable {
         case list(ListFeature.Action)
         case details(DetailsFeature.Action)
         case path([State.Route])
     }
-    
+
     //MARK: - Reducer
-    
+
     public var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {

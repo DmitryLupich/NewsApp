@@ -20,7 +20,7 @@ public struct DetailsPage: View {
         WithViewStore(store) { viewStore in
             ScrollView {
                 VStack(spacing: 16) {
-                    Text(viewStore.state.title)
+                    Text(viewStore.title)
                         .font(.title)
                     AsyncImage.init(url: viewStore.imageUrl) { image in
                         image
@@ -29,11 +29,11 @@ public struct DetailsPage: View {
                     }
                     .frame(height: 256)
                     HStack(spacing: .zero) {
-                        Text(viewStore.state.date)
+                        Text(viewStore.date)
                             .font(.subheadline)
                         Spacer()
                     }
-                    Text(viewStore.state.content)
+                    Text(viewStore.content)
                         .font(.body)
                 }
             }.padding(.horizontal, 16)

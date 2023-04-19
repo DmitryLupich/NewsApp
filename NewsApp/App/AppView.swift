@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import ListFeature
+import DetailsFeature
 import ComposableArchitecture
 
 struct AppView: View {

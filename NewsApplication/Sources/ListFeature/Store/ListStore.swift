@@ -7,6 +7,7 @@
 //
 
 import Models
+import Service
 import Foundation
 import Networking
 import ComposableArchitecture
@@ -65,4 +66,6 @@ public struct ListFeature: ReducerProtocol {
             }
         }
     }
+
+    public init() {}
 }
