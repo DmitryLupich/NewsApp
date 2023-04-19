@@ -52,7 +52,7 @@ public struct ListFeature: ReducerProtocol {
                     .news(for: state.page)
                     .replaceError(with: [])
                     .receive(on: DispatchQueue.main)
-                    .map { Action.loadedNews($0) }
+                    .map(Action.loadedNews)
                     .eraseToEffect()
             case .loadedNews(let news):
                 state.page += 1

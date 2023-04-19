@@ -13,8 +13,6 @@ import ListFeature
 import DetailsFeature
 import ComposableArchitecture
 
-//MARK: - App State
-
 public struct AppFeature: ReducerProtocol {
     //MARK: - State
     
