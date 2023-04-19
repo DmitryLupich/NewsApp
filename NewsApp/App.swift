@@ -6,10 +6,9 @@
 //  Copyright © 2022 Dmitry Lupich. All rights reserved.
 //
 
-import Common
-import ComposableArchitecture
-import ListPage
 import SwiftUI
+import Networking
+import ComposableArchitecture
 
 @main
 struct NewsApp: App {
@@ -18,12 +17,7 @@ struct NewsApp: App {
             AppView(
                 store: .init(
                     initialState: .initial,
-                    reducer: appReducer,
-                    environment: .init(
-                        networking: Networking(
-                            session: .shared
-                        )
-                    )
+                    reducer: AppFeature()
                 )
             )
         }
