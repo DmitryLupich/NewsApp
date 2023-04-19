@@ -13,9 +13,9 @@ import ComposableArchitecture
 //MARK: - View
 
 public struct ListView: View {
-    private let store: Store<ListState, ListAction>
+    private let store: StoreOf<ListFeature>
     
-    public init(store: Store<ListState, ListAction>) {
+    public init(store: StoreOf<ListFeature>) {
         self.store = store
     }
     

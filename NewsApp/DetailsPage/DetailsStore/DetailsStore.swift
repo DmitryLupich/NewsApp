@@ -8,33 +8,42 @@
 
 import Foundation
 import Models
+import ComposableArchitecture
 
-//MARK: - Details State
+public struct DetailsFeature: ReducerProtocol {
+    //MARK: - State
+    
+    public struct State: Equatable {
+        private let post: NewsModel
 
-public struct DetailsState: Equatable {
-    private let post: NewsModel
+        public init(post: NewsModel) {
+            self.post = post
+        }
 
-    public init(post: NewsModel) {
-        self.post = post
+        var title: String {
+            post.titleRendered.title.removeHTMLTags()
+        }
+
+        var imageUrl: URL? {
+            post.featuredMedia.flatMap { URL(string: $0.fullSizeUrl) }
+        }
+
+        var date: String {
+            post.date
+        }
+
+        var content: String {
+            post.contentRendered.content.removeHTMLTags()
+        }
     }
 
-    var title: String {
-        post.titleRendered.title.removeHTMLTags()
-    }
+    //MARK: - Action
 
-    var imageUrl: URL? {
-        post.featuredMedia.flatMap { URL(string: $0.fullSizeUrl) }
-    }
+    public enum Action: Equatable {}
 
-    var date: String {
-        post.date
-    }
+    //MARK: - Reducer
 
-    var content: String {
-        post.contentRendered.content.removeHTMLTags()
+    public var body: some ReducerProtocol<State, Action> {
+        EmptyReducer()
     }
 }
-
-//MARK: - Details Action
-
-public enum DetailsAction: Equatable {}

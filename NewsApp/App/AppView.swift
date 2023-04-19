@@ -10,7 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct AppView: View {
-    let store: Store<AppState, AppAction>
+    let store: StoreOf<AppFeature>
     
     var body: some View {
         WithViewStore.init(self.store) { viewStore in
@@ -23,19 +23,19 @@ struct AppView: View {
                 ListView(
                     store: store.scope(
                         state: \.listState,
-                        action: AppAction.list
+                        action: AppFeature.Action.list
                     )
                 )
                 .onAppear {
                     viewStore.start()
                 }
-                .navigationDestination(for: AppState.Route.self) { route in
+                .navigationDestination(for: AppFeature.State.Route.self) { route in
                     switch route {
                     case .details:
                         DetailsPage(
                             store: store.scope(
                                 state: \.detailsState,
-                                action: AppAction.details
+                                action: AppFeature.Action.details
                             )
                         )
                     }
@@ -45,7 +45,7 @@ struct AppView: View {
     }
 }
 
-fileprivate extension ViewStore<AppState, AppAction> {
+fileprivate extension ViewStore<AppFeature.State, AppFeature.Action> {
     func start() {
         send(.list(.start))
     }

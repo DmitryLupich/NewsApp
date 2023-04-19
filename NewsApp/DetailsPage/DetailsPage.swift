@@ -10,9 +10,9 @@ import SwiftUI
 import ComposableArchitecture
 
 public struct DetailsPage: View {
-    let store: Store<DetailsState, DetailsAction>
+    let store: StoreOf<DetailsFeature>
 
-    public init(store: Store<DetailsState, DetailsAction>) {
+    public init(store: StoreOf<DetailsFeature>) {
         self.store = store
     }
 

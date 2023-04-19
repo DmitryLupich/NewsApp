@@ -17,12 +17,7 @@ struct NewsApp: App {
             AppView(
                 store: .init(
                     initialState: .initial,
-                    reducer: appReducer,
-                    environment: .init(
-                        networking: Networking(
-                            session: .shared
-                        )
-                    )
+                    reducer: AppFeature()
                 )
             )
         }

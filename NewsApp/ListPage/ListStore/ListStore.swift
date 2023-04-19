@@ -8,50 +8,61 @@
 
 import Models
 import Foundation
+import Networking
 import ComposableArchitecture
 
-//MARK: - List State
+public struct ListFeature: ReducerProtocol {
+    private let environment: ListEnvironment = .init(
+        newsService: NewsService(
+            network: Networking(
+                session: .shared
+            )
+        )
+    )
 
-public struct ListState: Equatable {
-    public var page: Int = 1
-    public var news: [NewsModel]
+    //MARK: - State
 
-    public init(news: [NewsModel]) {
-        self.news = news
-    }
-}
+    public struct State: Equatable {
+        public var page: Int = 1
+        public var news: [NewsModel]
 
-//MARK: - List Action
-
-public enum ListAction: Equatable {
-    case start
-    case didScrollToBottom
-    case details(NewsModel)
-    case onAppear(NewsModel)
-    case loadedNews([NewsModel])
-}
-
-//MARK: - List Reducer
-
-public let listReducer = Reducer<ListState, ListAction, ListEnvironment>
-    .init { state, action, environment in
-        switch action {
-        case .start, .didScrollToBottom:
-            return environment
-                .newsService
-                .news(for: state.page)
-                .replaceError(with: [])
-                .receive(on: DispatchQueue.main)
-                .map { ListAction.loadedNews($0) }
-                .eraseToEffect()
-        case .loadedNews(let news):
-            state.page += 1
-            state.news += news
-            return .none
-        case .details:
-            return .none
-        case .onAppear(let post):
-            return post == state.news.last ?
-            Effect.init(value: ListAction.didScrollToBottom) : .none
+        public init(news: [NewsModel]) {
+            self.news = news
         }
     }
+
+    //MARK: - Action
+    public enum Action: Equatable {
+        case start
+        case didScrollToBottom
+        case details(NewsModel)
+        case onAppear(NewsModel)
+        case loadedNews([NewsModel])
+    }
+
+    //MARK: - Reducer
+
+    public var body: some ReducerProtocol<State, Action> {
+        Reduce { state, action in
+            switch action {
+            case .start, .didScrollToBottom:
+                return environment
+                    .newsService
+                    .news(for: state.page)
+                    .replaceError(with: [])
+                    .receive(on: DispatchQueue.main)
+                    .map { Action.loadedNews($0) }
+                    .eraseToEffect()
+            case .loadedNews(let news):
+                state.page += 1
+                state.news += news
+                return .none
+            case .details:
+                return .none
+            case .onAppear(let post):
+                return post == state.news.last ?
+                EffectTask(value: Action.didScrollToBottom) : .none
+            }
+        }
+    }
+}

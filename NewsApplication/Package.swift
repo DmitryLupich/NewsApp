@@ -24,7 +24,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "Networking",
-            dependencies: []),
+            dependencies: ["Utility"]),
         .target(
             name: "Models",
             dependencies: ["Utility"]),
