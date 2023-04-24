@@ -40,7 +40,7 @@
 		47F73A4222D354A40067C4B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47F73A4522D354A40067C4B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47F73A4722D354A40067C4B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9095281129C89296003832B5 /* NewsApplication */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NewsApplication; sourceTree = "<group>"; };
+		90FA978D29F679BF008F7A2B /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Modules; sourceTree = "<group>"; };
 		F175F81327B6973B00C05114 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		F175F81527B6974200C05114 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F175F81727B6993D00C05114 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 		47F73A2F22D354A30067C4B4 = {
 			isa = PBXGroup;
 			children = (
-				9095281129C89296003832B5 /* NewsApplication */,
+				90FA978D29F679BF008F7A2B /* Modules */,
 				47F73A3A22D354A30067C4B4 /* NewsApp */,
 				47F73A3922D354A30067C4B4 /* Products */,
 				9095281229C89472003832B5 /* Frameworks */,

@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "NewsApplication",
+    name: "Modules",
     platforms: [.iOS(.v16)],
     products: [
         .library(
