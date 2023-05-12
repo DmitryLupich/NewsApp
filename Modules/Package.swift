@@ -26,7 +26,11 @@ let package = Package(
             name: "DetailsFeature",
             targets: ["DetailsFeature"])
     ],
-    dependencies: [],
+    dependencies: [
+        .package(
+            url: "https://github.com/pointfreeco/swift-composable-architecture",
+            from: "0.9.0"),
+    ],
     targets: [
         .target(
             name: "Utility",
@@ -42,9 +46,17 @@ let package = Package(
             dependencies: ["Networking", "Models"]),
         .target(
             name: "ListFeature",
-            dependencies: ["Service"]),
+            dependencies: [
+                "Service",
+                .product(name: "ComposableArchitecture",
+                         package: "swift-composable-architecture")]),
         .target(
             name: "DetailsFeature",
-            dependencies: ["Utility", "Models"])
+            dependencies: [
+                "Utility",
+                "Models",
+                .product(name: "ComposableArchitecture",
+                         package: "swift-composable-architecture")])
     ]
 )
+
