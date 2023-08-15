@@ -14,7 +14,7 @@ fileprivate struct Constants {
     static let generic = "Sorry, try again later"
 }
 
-public enum NAError {
+public enum NAError: Equatable {
     case badUrl
     case mapping
     case generic

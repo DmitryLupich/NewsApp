@@ -25,6 +25,10 @@ public struct ListView: View {
                 ListItem(model: .init(post: post))
                     .onTapGesture { viewStore.send(.details(post)) }
                     .onAppear { viewStore.send(.onAppear(post)) }
+            }.toolbar {
+                if viewStore.isLoading {
+                    ProgressView()
+                }
             }
         }
     }

@@ -23,12 +23,12 @@ public struct AppFeature: ReducerProtocol {
 
         var path: [Route] = []
         var listState: ListFeature.State
-        var detailsState: DetailsFeature.State
+        var detailsState: DetailsFeature.State?
 
         static let initial: Self = .init(
             path: [],
             listState: .init(news: []),
-            detailsState: .init(post: .mock)
+            detailsState: .none
         )
     }
 
@@ -42,7 +42,7 @@ public struct AppFeature: ReducerProtocol {
 
     //MARK: - Reducer
 
-    public var body: some ReducerProtocol<State, Action> {
+    public var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
             case let .list(.details(post)):
@@ -56,6 +56,7 @@ public struct AppFeature: ReducerProtocol {
                 return .none
             }
         }
+        
         Scope(
             state: \.listState,
             action: /Action.list

@@ -13,6 +13,7 @@ import Networking
 import ComposableArchitecture
 
 public struct ListFeature: ReducerProtocol {
+    //MARK: - Environment
     private let environment: ListEnvironment = .init(
         newsService: NewsService(
             network: Networking(
@@ -22,10 +23,10 @@ public struct ListFeature: ReducerProtocol {
     )
 
     //MARK: - State
-
     public struct State: Equatable {
         public var page: Int = 1
         public var news: [NewsModel]
+        public var isLoading: Bool = false
 
         public init(news: [NewsModel]) {
             self.news = news
@@ -38,25 +39,29 @@ public struct ListFeature: ReducerProtocol {
         case didScrollToBottom
         case details(NewsModel)
         case onAppear(NewsModel)
-        case loadedNews([NewsModel])
+        case newsResponse(Result<[NewsModel], NAError>)
     }
 
     //MARK: - Reducer
-
     public var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
             case .start, .didScrollToBottom:
+                state.isLoading = true
                 return environment
                     .newsService
                     .news(for: state.page)
-                    .replaceError(with: [])
                     .receive(on: DispatchQueue.main)
-                    .map(Action.loadedNews)
-                    .eraseToEffect()
-            case .loadedNews(let news):
+                    .catchToEffect(Action.newsResponse)
+            case let .newsResponse(.success(news)):
+                state.isLoading = false
                 state.page += 1
                 state.news += news
+                return .none
+            case let .newsResponse(.failure(error)):
+                state.isLoading = false
+                //TODO: - Handle Error
+                print("❇️ Error:", error.localizedDescription)
                 return .none
             case .details:
                 return .none

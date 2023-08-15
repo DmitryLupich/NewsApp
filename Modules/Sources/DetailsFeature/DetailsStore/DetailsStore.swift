@@ -12,7 +12,6 @@ import ComposableArchitecture
 
 public struct DetailsFeature: ReducerProtocol {
     //MARK: - State
-    
     public struct State: Equatable {
         private let post: NewsModel
 
@@ -38,12 +37,10 @@ public struct DetailsFeature: ReducerProtocol {
     }
 
     //MARK: - Action
-
     public enum Action: Equatable {}
 
     //MARK: - Reducer
-
-    public var body: some ReducerProtocol<State, Action> {
+    public var body: some ReducerProtocolOf<Self> {
         EmptyReducer()
     }
 }

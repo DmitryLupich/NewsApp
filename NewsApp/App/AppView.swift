@@ -28,18 +28,21 @@ struct AppView: View {
                         action: AppFeature.Action.list
                     )
                 )
+                .navigationBarHidden(false)
                 .onAppear {
                     viewStore.start()
                 }
                 .navigationDestination(for: AppFeature.State.Route.self) { route in
                     switch route {
                     case .details:
-                        DetailsPage(
-                            store: store.scope(
+                        IfLetStore(
+                            store.scope(
                                 state: \.detailsState,
                                 action: AppFeature.Action.details
                             )
-                        )
+                        ) { store in
+                            DetailsPage(store: store)
+                        }
                     }
                 }
             }
