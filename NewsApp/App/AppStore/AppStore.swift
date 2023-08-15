@@ -15,7 +15,6 @@ import ComposableArchitecture
 
 public struct AppFeature: ReducerProtocol {
     //MARK: - State
-    
     public struct State: Equatable {
         public enum Route: Hashable {
             case details
@@ -33,7 +32,6 @@ public struct AppFeature: ReducerProtocol {
     }
 
     //MARK: - Action
-
     public enum Action: Equatable {
         case list(ListFeature.Action)
         case details(DetailsFeature.Action)
@@ -41,7 +39,6 @@ public struct AppFeature: ReducerProtocol {
     }
 
     //MARK: - Reducer
-
     public var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
